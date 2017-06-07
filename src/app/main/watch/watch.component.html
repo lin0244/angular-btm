@@ -1136,7 +1136,7 @@
     <div class="modal-dialog" role="document" style="width: 640px;">
         <div class="modal-content">
             <div class="modal-header" style="height: 80px;padding:16px 30px;border-bottom: 1px solid #ddd;">
-                <img src="../../../imgs/courseInfoPic.png" style="float: left;margin-right: 8px;" alt="">
+                <img src="../../../assets/courseInfoPic.png" style="float: left;margin-right: 8px;" alt="">
                 <p style="font-size: 18px;font-family: 微软雅黑;font-weight: bold;margin-bottom: 0px;">{{wat_liveDetailBaseInfo.courseName}}</p>
                 <p class="fsff14" style="float: left;margin-top: 5px;">主讲人<span style="margin-left: 10px;">{{wat_liveDetailBaseInfo.teacherName}}</span></p>
                 <a class="jumpToliveBtn" title="直播频道" href={{wat_liveUrl}} (click)="jumpTolive()" target="_blank" style="display: block;float: right;margin-top: -12px;width: 24px;height: 24px;"></a>
@@ -1160,38 +1160,38 @@
                         <img src={{wat_liveDetailZhuanyuanInfo.zhuanYuanUserPic}} style="width: 40px;height: 40px;border-radius: 50%;position: absolute;left: 30px;top: 10px;" alt="">
                         <p class="fsff14" style="color: #000;margin-top: 10px;margin-bottom: 4px;">
                             <span>{{wat_liveDetailZhuanyuanInfo.zhuanYuanName}}</span>
-                            <img src="../../../imgs/zhuanyuan.png" alt="" style="margin-left: 10px;margin-top: -2px;"></p>
+                            <img src="../../../assets/zhuanyuan.png" alt="" style="margin-left: 10px;margin-top: -2px;"></p>
                         <p class="fsff14" style="color: #999;">{{wat_liveDetailZhuanyuanInfo.zhuanYuanPhone}}</p>
                     </div>
                     <div style="width: 280px;height: 60px;border: 1px solid #ddd;margin-top: 40px;padding-left: 86px;position: relative;float: right;">
                         <img src={{wat_liveDetailZhibanInfo.zhiBanUserPic}} style="width: 40px;height: 40px;border-radius: 50%;position: absolute;left: 30px;top: 10px;" alt="">
                         <p class="fsff14" style="color: #000;margin-top: 10px;margin-bottom: 4px;">
                             <span>{{wat_liveDetailZhibanInfo.zhiBanName}}</span>
-                            <img src="../../../imgs/zhibanren.png" alt="" style="margin-left: 10px;margin-top: -2px;"></p>
+                            <img src="../../../assets/zhibanren.png" alt="" style="margin-left: 10px;margin-top: -2px;"></p>
                         <p class="fsff14" style="color: #999;">{{wat_liveDetailZhibanInfo.zhiBanPhone}}</p>
                     </div>
                 </div>
                 <div *ngFor="let room of wat_liveDetailInfozhuRoom" style="height: 60px;padding:10px 0;width: 100%;overflow: hidden;clear: both;background: #F5F5FA;margin-bottom: 5px;">
-                    <p class="fsff14" style="width: 288px;padding-left: 48px;background: url(../../../imgs/zhujiangRoomIcon.png) no-repeat 17px 12px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;height: 40px;float: left;line-height: 40px;margin-bottom:0;">
+                    <p class="fsff14" style="width: 288px;padding-left: 48px;background: url(../../../assets/zhujiangRoomIcon.png) no-repeat 17px 12px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;height: 40px;float: left;line-height: 40px;margin-bottom:0;">
                         {{room.schoolName}}{{room.classroomName}}
                     </p>
                     <p class="fsff14" style="height: 40px;line-height: 40px;float: right;width: 280px;margin-right: 10px;padding-left: 10px;margin-bottom: 0px;">
-                        <img src="../../../imgs/daobo.png" alt="">
+                        <img src="../../../assets/daobo.png" alt="">
                         <span class="fsff14" style="float:right;width: 91px;text-align: center;">{{room.daoboPhone}}</span>
                         <span class="fsff14" style="margin-left: 10px;width: 91px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: right;">{{room.daoboName}}</span>
                     </p>
                 </div>
                 <div *ngFor="let room of wat_liveDetailInfohuRoom" style="height: 80px;width: 100%;overflow: hidden;clear: both;background: #F5F5FA;margin-bottom: 5px;">
-                    <p class="fsff14" style="width: 288px;padding-left: 48px;background: url(../../../imgs/hudongRoomIcon.png) no-repeat 10px 30px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;height: 80px;float: left;line-height: 80px;">
+                    <p class="fsff14" style="width: 288px;padding-left: 48px;background: url(../../../assets/hudongRoomIcon.png) no-repeat 10px 30px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;height: 80px;float: left;line-height: 80px;">
                         {{room.schoolName}}{{room.classroomName}}
                     </p>
                     <p class="fsff14" style="height: 40px;line-height: 40px;float: right;width: 280px;margin-right: 10px;padding-left: 10px;margin-bottom: 0px;">
-                        <img src="../../../imgs/daobo.png" alt="">
+                        <img src="../../../assets/daobo.png" alt="">
                         <span class="fsff14" style="float:right;width: 91px;text-align: center;">{{room.daoboPhone}}</span>
                         <span class="fsff14" style="margin-left: 10px;width: 91px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: right;">{{room.daoboName}}</span>
                     </p>
                     <p class="fsff14" style="height: 40px;line-height: 40px;float: right;width: 280px;margin-right: 10px;padding-left: 10px;margin-bottom: 0px;">
-                        <img src="../../../imgs/zhujiao.png" alt="">
+                        <img src="../../../assets/zhujiao.png" alt="">
                         <span class="fsff14" style="float:right;width: 91px;text-align: center;">{{room.roomTeacherPhone}}</span>
                         <span class="fsff14" style="margin-left: 10px;width: 91px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: right;">{{room.roomTeacherName}}</span>
                     </p>

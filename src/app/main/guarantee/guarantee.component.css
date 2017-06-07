@@ -43,7 +43,7 @@
 }
 
 .zhibanpeopleCheck{
-    background: url(../../../imgs/zhibanCheck.png) no-repeat right top;
+    background: url(../../../assets/zhibanCheck.png) no-repeat right top;
 }
 .weixinSend:hover{
     background: #ccc!important;

@@ -1,12 +1,12 @@
 .currentVideo{
     height: 50px;
-    background:url(../../../imgs/currentVideo.gif) no-repeat 15px 18px #2570D3;
+    background:url(../../../assets/currentVideo.gif) no-repeat 15px 18px #2570D3;
     margin: 0px auto;
     padding-left:30px;
 }
 .historyVideo{
     height:45px;
-    background:url(../../../imgs/historyVideo.png) no-repeat 15px 11px #fff;          
+    background:url(../../../assets/historyVideo.png) no-repeat 15px 11px #fff;          
     margin: 0px 10px;
     padding:0px 8px;
 }
@@ -53,7 +53,7 @@
     height:45px;        
     margin: 0px 10px;
     padding:0px 8px;
-    background:url(../../../imgs/unstartVideo.png) no-repeat 15px 14px #fff;
+    background:url(../../../assets/unstartVideo.png) no-repeat 15px 14px #fff;
 }
 
 .daiqueren{
@@ -88,10 +88,10 @@
 }
 
 .sure{
-    background:url(../../../imgs/zhibanExcept.png) no-repeat right top;
+    background:url(../../../assets/zhibanExcept.png) no-repeat right top;
 }
 .refuse{
-    background:url(../../../imgs/zhibanUnexcept.png) no-repeat right top;
+    background:url(../../../assets/zhibanUnexcept.png) no-repeat right top;
 }
 
 .zhuHide{
@@ -101,7 +101,7 @@
     display:none!important;
 }
 .daoboConfuse{
-    background: url(../../../imgs/zhibanUnexcept.png) #F9FAFC no-repeat right top!important;
+    background: url(../../../assets/zhibanUnexcept.png) #F9FAFC no-repeat right top!important;
 }
 
 .feedBackTitle{
@@ -133,7 +133,7 @@
     position: absolute;
     left: -16px;
     top: 4px;
-    background: url(../../../imgs/infoZhuImg.png) no-repeat;
+    background: url(../../../assets/infoZhuImg.png) no-repeat;
 }
 .pingfenHu{
     display: inline-block;
@@ -142,7 +142,7 @@
     position: absolute;
     left: -16px;
     top: 4px;
-    background: url(../../../imgs/infoHuImg.png) no-repeat;
+    background: url(../../../assets/infoHuImg.png) no-repeat;
 }
 .overShow{
     overflow: visible!important;

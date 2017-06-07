@@ -294,24 +294,24 @@ html,body {
 
 
 .jumpToliveBtn{
-    background:url(./imgs/toLiveBtn.png) 0px 0px no-repeat;
+    background:url(./assets/toLiveBtn.png) 0px 0px no-repeat;
 }
 .jumpToliveBtn:hover{
-    background:url(./imgs/toLiveBtn.png) 0px -24px no-repeat;
+    background:url(./assets/toLiveBtn.png) 0px -24px no-repeat;
 }
 
 .jumpToheightTowerBtn{
-    background:url(./imgs/heightTower.png) 0px 0px no-repeat;
+    background:url(./assets/heightTower.png) 0px 0px no-repeat;
 }
 .jumpToheightTowerBtn:hover{
-    background:url(./imgs/heightTower.png) 0px -24px no-repeat;
+    background:url(./assets/heightTower.png) 0px -24px no-repeat;
 }
 
 .jumpToyuyinBtn{
-    background:url(./imgs/yuyin.png) 0px 0px no-repeat;
+    background:url(./assets/yuyin.png) 0px 0px no-repeat;
 }
 .jumpToyuyinBtn:hover{
-    background:url(./imgs/yuyin.png) 0px -24px no-repeat;
+    background:url(./assets/yuyin.png) 0px -24px no-repeat;
 }
 
 .fixSidebar-menu {

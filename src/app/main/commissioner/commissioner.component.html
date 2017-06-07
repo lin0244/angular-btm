@@ -8,7 +8,7 @@
             <div class="box-header" style="padding: 15px;">
                 <h1 class="box-title" style="width: 250px;">
                     <i class="fa" style="position: relative;top: -3px;">
-                        <img src="../../../imgs/rili.png" alt="">
+                        <img src="../../../assets/rili.png" alt="">
                     </i>
                     <span style="font-weight: bold;">{{shijianduan}}</span><br>
                     <div style="height: 20px;width: 190px;"></div>
@@ -177,7 +177,7 @@
                                         <p class="fsff14" style="text-align: center;margin: 20px 0px 20px;font-weight: bold;">教师信息</p>
                                         <div style="background: #F5F5FA;padding-top: 30px;padding-bottom: 20px;position: relative;">
                                             <img style="width: 60px;height: 60px;border-radius: 50%;margin: 0 auto;display: block;cursor: pointer;" src={{com_weekLiveTeacherPic}} alt="">
-                                            <div *ngIf="editoring" data-toggle="modal" class="imgChange" (click)="getTeachPic('3')" data-target="#weekInfoTeacherpic" style="top: 30px;margin-left: -30px;"><img src="../../../imgs/changeImg.png" alt=""></div>
+                                            <div *ngIf="editoring" data-toggle="modal" class="imgChange" (click)="getTeachPic('3')" data-target="#weekInfoTeacherpic" style="top: 30px;margin-left: -30px;"><img src="../../../assets/changeImg.png" alt=""></div>
                                             <input *ngIf="editoring" type="text" name="com_weekLiveTeacherName" [(ngModel)]="com_weekLiveTeacherName" style="text-align: center;width: 90%;margin: 0 auto;display: block;margin-top: 15px;color: #2570D3;">
                                             <p *ngIf="!editoring" style="width: 90%;margin: 0 auto;font-weight: bold;margin-top: 15px;margin-bottom: 15px;text-align: center;color: #2570D3;">
                                                 {{com_weekLiveTeacherName}}
@@ -193,7 +193,7 @@
                                         <p class="fsff14" style="text-align: center;margin: 20px 0px 20px;font-weight: bold;">见面课信息</p>
                                         <div style="background: #F5F5FA;padding-top: 10px;padding-bottom: 20px;position: relative;">
                                             <img style="width: 120px;height: 80px;margin: 0 auto;display: block;cursor: pointer;" src={{com_weekLivePic}} alt="">
-                                            <div *ngIf="editoring" class="imgChange" data-toggle="modal" (click)="getCoursePic('3')" data-target="#weekInfoCoursePic" style="top: 20px;margin-left: -30px;"><img src="../../../imgs/changeImg.png" alt=""></div>
+                                            <div *ngIf="editoring" class="imgChange" data-toggle="modal" (click)="getCoursePic('3')" data-target="#weekInfoCoursePic" style="top: 20px;margin-left: -30px;"><img src="../../../assets/changeImg.png" alt=""></div>
                                             <p style="width: 90%;margin: 0 auto;height: 26px;line-height: 26px;margin-top: 15px;text-align: center;color: #2570D3;font-weight: bold;">
                                                 <span>{{com_weekLiveType}}</span>
                                             </p>
@@ -380,8 +380,8 @@
                                             <div class="col-xs-2 paddingLing" style="text-align: center;height: 34px;line-height: 34px;">{{item.timeLong}}分钟</div>
                                             <div class="col-xs-2 paddingLing" style="text-align: center;height: 34px;line-height: 34px;">{{com_isHavePptArr[item.isHavePpt]}}</div>                        
                                             <div class="col-xs-2 paddingLing" style="text-align: center;height: 34px;line-height: 34px;">
-                                                <a style="margin-left: 14px;"><i data-toggle="modal" data-target="#deletRoomTosure" (click)="getClickRoomId(item.id)" class="fa" style="font-size: 16px;color:#00C0EF;cursor: pointer;"><img src="../../../imgs/delte.png" alt=""></i></a>
-                                                <a style="margin-left: 10px;"><i data-toggle="modal" data-target="#updateRoomModel" (click)="getClickRoomIdAndInfo(item.id)" class="fa" style="font-size: 16px;color:#00C0EF;cursor: pointer;"><img src="../../../imgs/editor.png" alt=""></i></a>
+                                                <a style="margin-left: 14px;"><i data-toggle="modal" data-target="#deletRoomTosure" (click)="getClickRoomId(item.id)" class="fa" style="font-size: 16px;color:#00C0EF;cursor: pointer;"><img src="../../../assets/delte.png" alt=""></i></a>
+                                                <a style="margin-left: 10px;"><i data-toggle="modal" data-target="#updateRoomModel" (click)="getClickRoomIdAndInfo(item.id)" class="fa" style="font-size: 16px;color:#00C0EF;cursor: pointer;"><img src="../../../assets/editor.png" alt=""></i></a>
                                             </div> 
                                         </div>
                                     </div>
@@ -922,7 +922,7 @@
                     <p style="float:left;width:31px;margin-right:12px;text-align: center;" *ngFor="let month of monthArrToShow;let i=index;">
                         {{month.slice(5,6)=='0'?month.slice(6,7):month.slice(5,7)}}月
                         <input style="margin-top: 3px;cursor:pointer;opacity:0;float: left;margin-left: 7px;" type="checkbox" checked="checked" [attr.value]="month.slice(5,6)=='0'?month.slice(6,7):month.slice(5,7)" #cUcheck (click)="monthCheck(i,cUcheck.value,cUcheck.checked,cUlabelVal,cUcheck)" />
-                        <label #cUlabelVal style="width: 12px;height: 12px;margin: 0 auto;display: block;background:url(../../../imgs/xuanzhong.png) no-repeat;margin-top: 3px;"></label>
+                        <label #cUlabelVal style="width: 12px;height: 12px;margin: 0 auto;display: block;background:url(../../../assets/xuanzhong.png) no-repeat;margin-top: 3px;"></label>
                     </p>
                 </div>
                 <div class="searchWrap" style="overflow: auto;float:left;margin-left: 20px;padding-top: 20px;">
@@ -998,35 +998,35 @@
                             <span #room1 [ngClass]="cUdata.period1.over=='0'?'noover':'over'" (click)="checkTimer(cUdata.period1.totalLiveQuantity,1,cUitem.month,i+1,room1,cUdata.week)">
                                 <span [class.canSelRoom]="cUdata.week==chooseWeek && com_roomSelFlag==1" style="position: relative;" [ngClass]="cUdata.period1.hasClassroom=='1'?'hasRoom':null">
                                     {{cUdata.period1.totalLiveQuantity}}
-                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../imgs/pkSelectRoom.png" alt="">
+                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../assets/pkSelectRoom.png" alt="">
                                 </span>
                             </span>
 
                             <span #room2 [ngClass]="cUdata.period2.over=='0'?'noover':'over'" (click)="checkTimer(cUdata.period2.totalLiveQuantity,2,cUitem.month,i+1,room2,cUdata.week)">
                                 <span [class.canSelRoom]="cUdata.week==chooseWeek && com_roomSelFlag==2" style="position: relative;" [ngClass]="cUdata.period2.hasClassroom=='1'?'hasRoom':null">
                                     {{cUdata.period2.totalLiveQuantity}}
-                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../imgs/pkSelectRoom.png" alt="">
+                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../assets/pkSelectRoom.png" alt="">
                                 </span>
                             </span>
 
                             <span #room3 [ngClass]="cUdata.period3.over=='0'?'noover':'over'" (click)="checkTimer(cUdata.period3.totalLiveQuantity,3,cUitem.month,i+1,room3,cUdata.week)">
                                 <span [class.canSelRoom]="cUdata.week==chooseWeek && com_roomSelFlag==3" style="position: relative;" [ngClass]="cUdata.period3.hasClassroom=='1'?'hasRoom':null">
                                     {{cUdata.period3.totalLiveQuantity}}
-                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../imgs/pkSelectRoom.png" alt="">
+                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../assets/pkSelectRoom.png" alt="">
                                 </span>
                             </span>
 
                             <span #room4 [ngClass]="cUdata.period4.over=='0'?'noover':'over'" (click)="checkTimer(cUdata.period4.totalLiveQuantity,4,cUitem.month,i+1,room4,cUdata.week)">
                                 <span [class.canSelRoom]="cUdata.week==chooseWeek && com_roomSelFlag==4" style="position: relative;" [ngClass]="cUdata.period4.hasClassroom=='1'?'hasRoom':null">
                                     {{cUdata.period4.totalLiveQuantity}}
-                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../imgs/pkSelectRoom.png" alt="">
+                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../assets/pkSelectRoom.png" alt="">
                                 </span>
                             </span>
 
                             <span #room5 [ngClass]="cUdata.period5.over=='0'?'noover':'over'" (click)="checkTimer(cUdata.period5.totalLiveQuantity,5,cUitem.month,i+1,room5,cUdata.week)">
                                 <span [class.canSelRoom]="cUdata.week==chooseWeek && com_roomSelFlag==5" style="position: relative;" [ngClass]="cUdata.period5.hasClassroom=='1'?'hasRoom':null">
                                     {{cUdata.period5.totalLiveQuantity}}
-                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../imgs/pkSelectRoom.png" alt="">
+                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../assets/pkSelectRoom.png" alt="">
                                 </span>
                             </span>
                             
@@ -1037,7 +1037,7 @@
             </div>
             <div class="pkLiveList">
                 <div class="paikeLive" [class.paikeLiveChose]="live.id==com_paiKeLiveId" [class.paikeLiveShowLock]="liveKaiguanList[sort]==2" [class.paikeLiveShowInfo]="live.info==true" *ngFor="let live of liveListForPaike;let sort=index;">
-                    <img style="position: absolute;top: 0px;left: 0px;display: none;" src="../../../imgs/pkSelectRoom.png" alt="">
+                    <img style="position: absolute;top: 0px;left: 0px;display: none;" src="../../../assets/pkSelectRoom.png" alt="">
                     <p (click)="selectPaikeLive(live.id,sort)" class="fsff14" title={{live.liveName}} style="height: 40px;line-height: 40px;margin-bottom: 0px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{live.liveName}}</p>
                     <p class="fsff12 paikeTimeinfo" style="border-top: 1px solid #ccc;margin: 0px;padding: 10px 0px;">{{live.livetime}}</p>
                     <p class="fsff12 paikeRoominfo" style="margin: 0px;padding-bottom: 10px;">

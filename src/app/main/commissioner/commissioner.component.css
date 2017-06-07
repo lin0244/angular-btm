@@ -74,14 +74,14 @@
 .timeInfoTitle{
     color:#999;
     padding-left: 25px;
-    background: url(../../../imgs/timeIco.png) no-repeat 0px 0px;
+    background: url(../../../assets/timeIco.png) no-repeat 0px 0px;
     margin:0px;
     margin-bottom: 30px;
 }
 .roomInfoTitle{
     color:#999;
     padding-left: 25px;
-    background: url(../../../imgs/classRoom.png) no-repeat 0px 0px;
+    background: url(../../../assets/classRoom.png) no-repeat 0px 0px;
     margin:0px;
     margin-bottom: 30px;
 }
@@ -115,7 +115,7 @@
 .infoYuyinImg{
     width: 36px;
     height: 36px;
-    background: url(../../../imgs/yuyinBig.png) no-repeat 0px 0px;
+    background: url(../../../assets/yuyinBig.png) no-repeat 0px 0px;
     overflow: hidden;
     margin: 0 auto;
 }
@@ -125,7 +125,7 @@
 .infoGaotaImg{
     width: 36px;
     height: 36px;
-    background: url(../../../imgs/heightTowerBig.png) no-repeat 0px 0px;
+    background: url(../../../assets/heightTowerBig.png) no-repeat 0px 0px;
     overflow: hidden;
     margin: 0 auto;
 }
@@ -135,7 +135,7 @@
 .infoZhiboImg{
     width: 36px;
     height: 36px;
-    background: url(../../../imgs/toLiveBtnBig.png) no-repeat 0px 0px;
+    background: url(../../../assets/toLiveBtnBig.png) no-repeat 0px 0px;
     overflow: hidden;
     margin: 0 auto;
 }
@@ -156,7 +156,7 @@
 .infoBaozDivImgCon{
     width: 32px;
     height: 32px;
-    background: url(../../../imgs/infoBaozImg.png) no-repeat;
+    background: url(../../../assets/infoBaozImg.png) no-repeat;
     position: absolute;
     top: 4px;
     left: -16px;
@@ -177,7 +177,7 @@
 .infoZhuDivImgCon{
     width: 32px;
     height: 32px;
-    background: url(../../../imgs/infoZhuImg.png) no-repeat;
+    background: url(../../../assets/infoZhuImg.png) no-repeat;
     position: absolute;
     top: 4px;
     left: -16px;
@@ -197,7 +197,7 @@
 .infoHuDivImgCon{
     width: 32px;
     height: 32px;
-    background: url(../../../imgs/infoHuImg.png) no-repeat;
+    background: url(../../../assets/infoHuImg.png) no-repeat;
     position: absolute;
     top: 4px;
     left: -16px;
@@ -225,7 +225,7 @@
     height: 34px;
     line-height: 34px;
     border-radius: 17px;
-    background: url(../../../imgs/tongbuBtnImg.png) no-repeat #fff 25px 9px;
+    background: url(../../../assets/tongbuBtnImg.png) no-repeat #fff 25px 9px;
     padding-left: 46px;
     color: #949FBD;
     margin-right: 20px;
@@ -238,7 +238,7 @@
     height: 34px;
     line-height: 34px;
     border-radius: 17px;
-    background: url(../../../imgs/paikeBtnImg.png) no-repeat #fff 23px 8px;
+    background: url(../../../assets/paikeBtnImg.png) no-repeat #fff 23px 8px;
     padding-left: 46px;
     color: #949FBD;
     margin-right: 20px;
@@ -251,7 +251,7 @@
     height: 34px;
     line-height: 34px;
     border-radius: 17px;
-    background: url(../../../imgs/baocunBtnImg.png) no-repeat #fff 25px 7px;
+    background: url(../../../assets/baocunBtnImg.png) no-repeat #fff 25px 7px;
     padding-left: 46px;
     color: #949FBD;
     /*box-shadow: 1px 1px 5px #888;*/
@@ -287,7 +287,7 @@
     line-height: 40px;
     border-top: 1px solid #DDD;
     padding-left: 26px;
-    background: url(../../../imgs/infoTimeImg.png) no-repeat 0 12px;
+    background: url(../../../assets/infoTimeImg.png) no-repeat 0 12px;
     cursor: pointer;
     margin-bottom: 0px;
 }
@@ -296,7 +296,7 @@
     line-height: 40px;
     border-top: 1px solid #DDD;
     padding-left: 26px;
-    background: url(../../../imgs/infoClassRoomImg.png) no-repeat 0 12px;
+    background: url(../../../assets/infoClassRoomImg.png) no-repeat 0 12px;
     margin-bottom: 0px;
     cursor: pointer;
 }
@@ -367,7 +367,7 @@
     cursor: pointer;
 }
 
-.spanImgShow img{
+.spanassetshow img{
     display: block!important;
 }
 .ArrangementDetail ul li span.weekNum,
@@ -526,6 +526,6 @@ div.paikeLiveChose p{
 .paikeLiveShowInfo .paikeRoominfo,.paikeLiveShowInfo .paikeTimeinfo{
     display: block;
 }
-.paikeLiveInfoImgShow img{
+.paikeLiveInfoassetshow img{
     display: block!important;
 }
