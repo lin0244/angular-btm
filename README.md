@@ -14,7 +14,17 @@ ng build
 启用预编译打包：  
 ng build -prod
 # 项目展示
-目前就设定了五种角色权限，就暂时先把各个角色的页面展示一下  
-![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role1.gif )  
+目前就设定了五种角色权限，就暂时先把各个角色的页面展示一下  
+角色1管理员
+![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role1.gif )    
+角色2  
+![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role2.gif )  
+角色3  
+![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role3.gif )  
+角色4
+![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role4.gif )  
+角色5
+![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role5.gif )
+
 
 
