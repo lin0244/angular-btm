@@ -19,13 +19,16 @@ ng build -prod
 角色1管理员
 ![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role1.gif )    
 角色2  
-![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role2.gif )  
+![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role2.gif )  
+
 角色3  
-![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role3.gif )  
+![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role3.gif )    
+
 角色4
-![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role4.gif )  
+![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role4.gif )    
+
 角色5
-![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role5.gif )
+![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role5.gif )  
 
 
 
