@@ -1,0 +1,10 @@
+.login-page {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.login-page .login-box{
+    position:absolute;
+    left: 50%;
+    margin-left: -180px;
+}

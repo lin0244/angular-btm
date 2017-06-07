@@ -1,0 +1,171 @@
+.kebiaoactive{
+    border-bottom: 2px solid #2570D3!important;
+}
+.kebiaoactive i{
+    display: block!important;
+}
+.kebiaoactive i:hover{
+    color: #2570D3;
+}
+.kebiaoBtn{
+    width: 42%;
+    border-right: 1px solid #ccc;
+    float: left;
+    background: #fff;
+    height: 40px;
+    padding-left: 20px;
+    line-height: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+.addkebiaoBtn{
+    width: 16%;
+    border-right: 1px solid #ccc;
+    float: left;
+    background: #fff;
+    height: 40px;
+    line-height: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.week8-current h2{
+    color: #fff!important;
+    background: #2570D3;
+}
+.week8-click {
+    width:25%!important;
+    padding: 0px 5px!important;
+}
+.week8-click .weekBorder {
+    border:none!important;
+    box-shadow: 0px 1px 8px rgba(0,0,0,0.2);
+}
+.week8-current h2{
+    height: 33px;
+    line-height:12px;
+}
+.weekmonDay{
+    display: none;
+    position: absolute;
+    left: 50%;
+    margin-left: -23px;
+}
+.week8-click .weekmonDay{
+    display: inline-block;
+}
+.weekmonDayNum{
+    display: none;
+}
+.week8-click .weekmonDayNum{
+    display: inline-block;
+}
+p.weekLive{
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    padding: 3px 8px;
+    background: #F5F5FA;
+    border-left: 4px solid #F15151;
+}
+p.weekLiveSure {
+    border-left: 4px solid #33CC66!important;
+}
+p.weekLive span{
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: '微软雅黑';
+    font-size: 12px;
+    color: #939EBD;
+}
+.tongbuBtn{
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    border-radius: 20px;
+    background: #4A8BE9;
+    margin-top: 20px;
+}
+.tongbuTitleCon{
+    height: 80px;
+    background: #fff;
+    padding: 0px;
+    border-right: 5px solid #ECF0F5;
+}
+.fabuTitleCon{
+    height: 80px;
+    background: #fff;
+    padding: 0px;
+    border-left: 5px solid #ECF0F5;
+}
+
+.nav-tabs>li>a.tab-a{
+    border: none;
+    color: #000;
+    font-weight: bold;
+
+}
+.nav-tabs>li.active>a.tab-a{
+    color: #2570D3;
+    border-bottom: 3px solid #2570D3;
+}
+.tab-pane {
+    border-bottom: 1px solid #ddd;
+}
+span.feedBackTItle{
+    padding: 2px 3px;
+    background: #2570D3;
+    color: #fff;
+    border-radius: 2px;
+    display: block;
+    width: 54px;
+}
+p.feedBackCon{
+    color: #000;
+    font-size: 12px;
+    font-family: '微软雅黑';
+    word-break: break-all;
+    margin:5px 0px 10px;
+}
+div.feedBackfooter{
+    padding: 0px;
+    margin-top:5px;
+    border: none;
+    position: relative;
+}
+.fixSidebar-menu li.active a{
+    background: #2570D3!important;
+}
+.fixSidebar-menu li.active a span {
+    color:#fff!important;
+}
+.fixSidebar-menu li.active a i {
+    color:#fff!important;
+}
+.requireChangeTitle{
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    height: 36px;
+    line-height: 36px;
+}
+.requireChangeTitleH{
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    height: 72px; 
+    display: table-cell; 
+    vertical-align: middle; 
+    /*overflow:hidden;
+    word-break: break-all;*/
+}
+.haveChange{
+    color: #F15151;
+}

@@ -1,0 +1,1067 @@
+<div *ngIf="com_isHaveKebiao">
+    <section class="content-header" style="padding:0px 0px 15px;height: 40px;">
+        <div *ngIf="com_currents" (click)="scheduleSwitch('1')" class="fsff14 cUkebiaoBtn kebiaoactive kebiaoBtn">{{cUkebiaoName}}</div>
+        <div *ngIf="com_notStarts" (click)="scheduleSwitch('2')" class="fsff14 nSkebiaoBtn kebiaoBtn">{{nSkebiaoName}}</div>
+    </section>
+    <section *ngIf="com_isCuKebiao" class="invoice" style="padding: 0px;border:0px;margin-top: 25px;">
+        <div class="box box-solid" style="border-top: none;margin-bottom: 0px;border-radius: 0px;">
+            <div class="box-header" style="padding: 15px;">
+                <h1 class="box-title" style="width: 250px;">
+                    <i class="fa" style="position: relative;top: -3px;">
+                        <img src="../../../imgs/rili.png" alt="">
+                    </i>
+                    <span style="font-weight: bold;">{{shijianduan}}</span><br>
+                    <div style="height: 20px;width: 190px;"></div>
+                    <button *ngIf="com_isHaveoldWeek" (click)="switchWeek('0')" style="background: #F5F5FA;padding: 1px 8px;" class="btn btn-default btn-sm oldWeekShow">← {{oldWeekShow}}</button>
+                    <span class="fsff12" style="padding:0px 3px;">{{weekToshow}}</span>
+                    <button *ngIf="com_isHavefutureWeek" (click)="switchWeek('1')" style="background: #F5F5FA;padding: 1px 8px;" class="btn btn-default btn-sm">{{newWeekShow}} →</button>
+                </h1>
+                <div style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;">{{jiezhiTime}}</p>
+                    <p class="fsff12" style="color: #A0A0A1;">截止日期</p>
+                </div>
+                <div *ngIf="com_isFutureWeek" style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;color: #F15151;">{{shengyuTime}}</p>
+                    <p class="fsff12" style="color: #A0A0A1;">剩余天数</p>
+                </div>
+                <div *ngIf="com_isFutureWeek" style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;color: #33CC66;">{{weekLiveAlreadySure}}</p>
+                    <p class="fsff12" style="color: #A0A0A1;">已确认</p>
+                </div>
+                <div *ngIf="!com_isFutureWeek" style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;color: #33CC66;">{{weekLiveAlreadyFeedback}}</p>
+                    <p class="fsff12" style="color: #A0A0A1;">已反馈</p>
+                </div>
+                <div *ngIf="com_isCuweek" style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;color: #33CC66;">{{weekLiveAlreadyPlay}}</p>
+                    <p class="fsff12" style="color: #A0A0A1;">已播出</p>
+                </div>
+                <div style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;">{{weekLiveAllLive}}</p>
+                    <p class="fsff12" style="color: #A0A0A1;">本周见面课数</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section *ngIf="com_isCuKebiao" class="invoice" style="padding: 0px;border:0px;margin-bottom: 25px;">
+        <div class="row">
+            <div class="col-xs-3" style="padding-right: 0px;">
+                <div class="nano" style="height: 636px;box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
+                    <div class="treeMenuCon nano-content">
+                        <ul *ngIf="weekIsHaveLive" class="fixSidebar-menu">
+                            <li *ngFor="let dayInfo of com_weekLiveInfoToshow" class="treeview weekLiveTree" [class.active]="dayInfo.weekName==com_currentWeek">
+                                <a class="fsff14 treeviewACon" href="javascript:;">
+                                    <span style="color: #2570D3;">{{dayInfo.week}}</span>
+                                    <span class="pull-right-container" style="right: 0px;margin-top: -9px;"><i class="fa fa-angle-left pull-right" style="color: #2570D3;font-size: 18px;"></i></span>
+                                    <span class="pull-right" style="margin-right: 20px;color: #2570D3;">{{dayInfo.time}}</span>
+                                </a>
+                                <ul class="treeview-menu" style="background: #fff;padding: 10px;">
+                                    <li>
+                                        <p class="fsff12 weekLiveAPMcon">上午</p>
+                                        <div *ngFor="let live of dayInfo.amtimeperiods" [class.com_weekLiveConChose]="live.id==weekChoseLiveId" (click)="switchWeekLive(live.id,live.courseId,live.livecourseId)" [class.com_weekLiveConSure]="live.infoConfirm==2 && live.strategyConfirm==2" class="fsff12 com_weekLiveCon">
+                                            <p class="overFlowDian" style="font-weight: bold;margin-bottom: 0px;">{{live.courseName}}</p>
+                                            <p class="overFlowDian" style="margin-bottom: 0px;color: #8B97B8;">{{live.liveName}}</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <p class="fsff12 weekLiveAPMcon">下午</p>
+                                        <div *ngFor="let live of dayInfo.pmtimeperiods" [class.com_weekLiveConChose]="live.id==weekChoseLiveId" (click)="switchWeekLive(live.id,live.courseId,live.livecourseId)" [class.com_weekLiveConSure]="live.infoConfirm==2 && live.strategyConfirm==2" class="fsff12 com_weekLiveCon">
+                                            <p class="overFlowDian" style="font-weight: bold;margin-bottom: 0px;">{{live.courseName}}</p>
+                                            <p class="overFlowDian" style="margin-bottom: 0px;color: #8B97B8;">{{live.liveName}}</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <p class="fsff12 weekLiveAPMcon">晚上</p>
+                                        <div *ngFor="let live of dayInfo.nighttimeperiods" [class.com_weekLiveConChose]="live.id==weekChoseLiveId" (click)="switchWeekLive(live.id,live.courseId,live.livecourseId)" [class.com_weekLiveConSure]="live.infoConfirm==2 && live.strategyConfirm==2" class="fsff12 com_weekLiveCon">
+                                            <p class="overFlowDian" style="font-weight: bold;margin-bottom: 0px;">{{live.courseName}}</p>
+                                            <p class="overFlowDian" style="margin-bottom: 0px;color: #8B97B8;">{{live.liveName}}</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p *ngIf="!weekIsHaveLive" class="fsff16" style="line-height: 350px;text-align: center;height: 530px;margin: 0px;">当前时间段暂无见面课！</p>
+                    </div>
+                </div>  
+            </div>
+            <div class="col-xs-9" style="border-left: 10px solid #ECF0F5;padding-left: 0px;">
+                <div *ngIf="weekIsHaveLive" class="box box-solid" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);margin-bottom: 0px;padding-bottom: 20px;border-radius: 0px;">
+                    <div class="box-header" style="padding: 20px 20px 0px;clear: both;overflow: hidden;border-bottom: 1px solid #ccc;">
+                        <div style="width: 20%;float: left;">
+                            <div (click)="switchStep('1')" class="stepDiv" style="margin: 0px 20px;padding-bottom: 5px;cursor: pointer;">
+                                <p style="text-align: center;">
+                                    <span class="liveStepPoint liveStepPointGreen">
+                                        1
+                                    </span>
+                                </p>
+                                <p class="fsff12" style="text-align: center;font-weight: bold;">排课信息</p>
+                            </div> 
+                        </div>
+                        <div style="width: 20%;float: left;">
+                            <div (click)="switchStep('2')" class="stepDiv" style="margin: 0px 20px;padding-bottom: 5px;cursor: pointer;">
+                                <p style="text-align: center;">
+                                    <span class="liveStepPoint">
+                                        2
+                                    </span>
+                                </p>
+                                <p class="fsff12" style="text-align: center;font-weight: bold;">信息确认</p>
+                            </div> 
+                        </div>
+                        <div style="width: 20%;float: left;">
+                            <div (click)="switchStep('3')" class="stepDiv" style="margin: 0px 20px;padding-bottom: 5px;cursor: pointer;">
+                                <p style="text-align: center;">
+                                    <span class="liveStepPoint">
+                                        3
+                                    </span>
+                                </p>
+                                <p class="fsff12" style="text-align: center;font-weight: bold;">互动策略</p>
+                            </div> 
+                        </div>
+                        <div style="width: 20%;float: left;">
+                            <div (click)="switchStep('4')" class="stepDiv" style="margin: 0px 20px;padding-bottom: 5px;cursor: pointer;">
+                                <p style="text-align: center;">
+                                    <span class="liveStepPoint">
+                                        4
+                                    </span>
+                                </p>
+                                <p class="fsff12" style="text-align: center;font-weight: bold;">直播</p>
+                            </div> 
+                        </div>
+                        <div style="width: 20%;float: left;">
+                            <div (click)="switchStep('5')" class="stepDiv" style="margin: 0px 20px;padding-bottom: 5px;cursor: pointer;">
+                                <p style="text-align: center;">
+                                    <span class="liveStepPoint">
+                                        5
+                                    </span>
+                                </p>
+                                <p class="fsff12" style="text-align: center;font-weight: bold;">反馈</p>
+                            </div> 
+                        </div>
+                    </div>
+                    <div style="padding: 0px 10px;height: 530px;" class="box-body" [ngSwitch]="com_infoStep">
+                        <div *ngSwitchCase="'infoStep1'">
+                            <div style="margin: 30px auto 0px;clear: both;">
+                                <div style="float: left;margin-left: 30px;">
+                                    <h1 class="fsff16 timeInfoTitle">时间</h1>
+                                    <p class="fsff14">
+                                        <span class="infoTitle">日期</span>
+                                        <span>{{this.weekChoseLiveInfo.startTime|date:'yyyy-MM-dd'}}</span>
+                                    </p>
+                                    <p class="fsff14">
+                                        <span class="infoTitle">时间</span>
+                                        <span>{{this.weekChoseLiveInfo.startTime|date:'HH:mm'}}-{{this.weekChoseLiveInfo.endTime|date:'HH:mm'}}</span>
+                                    </p>
+                                </div>
+                                <div style="float: left;margin-left: 150px;">
+                                    <h1 class="fsff16 roomInfoTitle">
+                                        教室
+                                    </h1>
+                                    <p class="fsff14">
+                                        <span class="infoTitle">省区</span>
+                                        <span>{{weekChoseLivePrivence}}</span>
+                                        <span class="infoTitle" style="margin-left: 40px;">学校</span>
+                                        <span>{{this.weekChoseLiveInfo.schoolName}}</span>
+                                    </p>
+                                    <p class="fsff14">
+                                        <span class="infoTitle">教室</span>
+                                        <span>{{this.weekChoseLiveInfo.classroomName}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngSwitchCase="'infoStep2'">
+                            <div class="row" style="padding: 0px 40px;margin-bottom: 30px;">
+                                <div style="clear: both;overflow: hidden;max-width: 750px;margin: 0 auto;">
+                                    <div style="float: left;width: 50%;border-right: 5px solid #fff;max-width: 371px;">
+                                        <p class="fsff14" style="text-align: center;margin: 20px 0px 20px;font-weight: bold;">教师信息</p>
+                                        <div style="background: #F5F5FA;padding-top: 30px;padding-bottom: 20px;position: relative;">
+                                            <img style="width: 60px;height: 60px;border-radius: 50%;margin: 0 auto;display: block;cursor: pointer;" src={{com_weekLiveTeacherPic}} alt="">
+                                            <div *ngIf="editoring" data-toggle="modal" class="imgChange" (click)="getTeachPic('3')" data-target="#weekInfoTeacherpic" style="top: 30px;margin-left: -30px;"><img src="../../../imgs/changeImg.png" alt=""></div>
+                                            <input *ngIf="editoring" type="text" name="com_weekLiveTeacherName" [(ngModel)]="com_weekLiveTeacherName" style="text-align: center;width: 90%;margin: 0 auto;display: block;margin-top: 15px;color: #2570D3;">
+                                            <p *ngIf="!editoring" style="width: 90%;margin: 0 auto;font-weight: bold;margin-top: 15px;margin-bottom: 15px;text-align: center;color: #2570D3;">
+                                                {{com_weekLiveTeacherName}}
+                                            </p>
+                                            <p style="width: 90%;margin: 0 auto;font-weight: bold;margin-top: 10px;margin-bottom: 10px;text-align: center;">
+                                                教师简介
+                                            </p>
+                                            <textarea *ngIf="editoring" maxlength="800" rows="10" [(ngModel)]="com_weekLiveTeacherIntr" style="color: #8B97B7;width: 90%;margin: 0 auto;display: block;resize: none;padding: 5px;"></textarea>
+                                            <div *ngIf="!editoring" title={{com_weekLiveTeacherIntr}} style="width: 90%;margin: 0 auto;padding: 5px;height: 208px;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 10;-webkit-box-orient: vertical;color: #8B97B7;">{{com_weekLiveTeacherIntr}}</div>
+                                        </div>
+                                    </div>
+                                    <div style="float: right;width: 50%;border-left: 5px solid #fff;max-width: 371px;">
+                                        <p class="fsff14" style="text-align: center;margin: 20px 0px 20px;font-weight: bold;">见面课信息</p>
+                                        <div style="background: #F5F5FA;padding-top: 10px;padding-bottom: 20px;position: relative;">
+                                            <img style="width: 120px;height: 80px;margin: 0 auto;display: block;cursor: pointer;" src={{com_weekLivePic}} alt="">
+                                            <div *ngIf="editoring" class="imgChange" data-toggle="modal" (click)="getCoursePic('3')" data-target="#weekInfoCoursePic" style="top: 20px;margin-left: -30px;"><img src="../../../imgs/changeImg.png" alt=""></div>
+                                            <p style="width: 90%;margin: 0 auto;height: 26px;line-height: 26px;margin-top: 15px;text-align: center;color: #2570D3;font-weight: bold;">
+                                                <span>{{com_weekLiveType}}</span>
+                                            </p>
+                                            <p style="width: 90%;margin: 0 auto;font-weight: bold;margin-top: 10px;margin-bottom: 10px;text-align: center;">
+                                                见面课简介
+                                            </p>
+                                            <textarea *ngIf="editoring" rows="10" maxlength="800" [(ngModel)]="com_weekLiveIntr" style="width: 90%;margin: 0 auto;display: block;resize: none;padding: 5px;color: #8B97B7;"></textarea>
+                                            <div *ngIf="!editoring" title={{com_weekLiveIntr}} style="width: 90%;margin: 0 auto;padding: 5px;height: 208px;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 10;-webkit-box-orient: vertical;color: #8B97B7;">{{com_weekLiveIntr}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a *ngIf="editoring" href="javascript:;" (click)="weekInfoSure()" class="fsff14 infoSureBtn">确 认</a>
+                            <a *ngIf="!editoring" href="javascript:;" (click)="weekInfoEditor()" class="fsff14 infoEditorBtn">编 辑</a>
+                            <div class="modal fade" id="weekInfoTeacherpic" style="z-index: 1051;" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" style="width: 350px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close clickinfoTeacherpicGuanbi" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title">选择图片</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group">
+                                                <input type="text" (keyup.enter)="getTeachPic('3')" [(ngModel)]="com_weekTeacherPicSeaVal" name="clickinfoTeacherSeaVal" placeholder="请输入老师姓名" class="form-control" />
+                                                <span class="input-group-btn">
+                                                    <button (click)="getTeachPic('3')" class="btn btn-info btn-flat" style="background: #2570D3;">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer nano" style="height: 391px;overflow: hidden;">
+                                            <div class="nano-content">
+                                                <ul class="products-list product-list-in-box" style="font-family: 微软雅黑;">
+                                                    <li class="item" *ngFor="let pic of com_weekTeacherPicList" (click)="selectTeacherPic(pic.imgUrl,'3')" style="cursor: pointer;background: #F5F5F5;border-bottom: 1px solid #ccc;padding: 5px 10px;position: relative;">
+                                                        <div class="product-img">
+                                                            <img src={{pic.imgUrl}} alt="" style="width: 60px;height: 60px;margin-top: 6px;">
+                                                        </div>
+                                                        <div class="product-info" style="height: 61px;line-height: 61px;text-align: left;margin-left: 70px;">
+                                                            <span class="product-title">
+                                                            老师姓名：{{pic.name}}
+                                                            </span>          
+                                                        </div>
+                                                    </li>                                        
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="weekInfoCoursePic" style="z-index: 1051;" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" style="width: 350px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close clickinfoCoursePicGuanbi" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title">选择图片</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" (keyup.enter)="getCoursePic('3')" [(ngModel)]="com_weekLivePicSeaVal" placeholder='请输入见面课名称' name="clickinfoCourseSeaVal" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-info btn-flat" style="background:#2570D3;" (click)="getCoursePic('3')">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer nano" style="height: 391px;overflow: hidden;">
+                                            <div class="nano-content">
+                                                <ul class="products-list product-list-in-box" style="font-family: 微软雅黑;">
+                                                    <li class="item" *ngFor="let pic of com_weekLivePicList" (click)="selectCoursePic(pic.imgUrl,'3')" style="cursor: pointer;background: #F5F5F5;border-bottom: 1px solid #ccc;padding: 5px 10px;position: relative;">
+                                                        <div class="product-img">
+                                                            <img src={{pic.imgUrl}} alt="" style="width: 80px;height: 60px;margin-top: 6px;">
+                                                        </div>
+                                                        <div class="product-info" style="height: 61px;line-height: 61px;text-align: left;margin-left: 90px;">
+                                                            <span class="product-title">
+                                                                课程名称：{{pic.name}}
+                                                            </span>        
+                                                        </div>
+                                                    </li>     
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngSwitchCase="'infoStep3'">
+                            <div class="liveCelueInfoCon" style="padding: 15px 30px 0px;">
+                                <p class="fsff14" style="height: 30px;margin-bottom: 5px;line-height: 30px;font-weight: bold;">见面课组织形式（时长：{{com_meetLiveLong}} 分钟）
+                                    <select (change)="switchLiveType()" class="form-control pull-right" style="width: 106px;height: 30px;padding: 3px 6px;" id="liveZuzhiTypeSel">
+                                        <option value="1">主题授课型</option>
+                                        <option value="2">嘉宾访谈型</option>
+                                        <option value="3">学生汇报型</option>
+                                    </select>
+                                </p>
+                                <div class="zuzhiType1" style="padding: 10px;background: #F5F5FA;clear: both;overflow: hidden;">
+                                    <div style="width: 33%;float: left;line-height: 30px;">
+                                        <span class="fsff12" style="float: left;width: 90px;margin-left: 15px;">教师主讲</span>
+                                        <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" [(ngModel)]="com_teachTime1" class="form-control" maxlength="3" style="float: left;width: 50px;height: 30px;margin: 0px 10px;" type="text">
+                                        <span class="fsff12" style="float: left;">分钟</span>
+                                    </div>
+                                    <div style="width: 33%;float: left;line-height: 30px;">
+                                        <span class="fsff12" style="float: left;width: 90px;margin-left: 15px;">教室互动</span>
+                                        <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" [(ngModel)]="com_interactiveTime1" class="form-control" maxlength="3" style="float: left;width: 50px;height: 30px;margin: 0px 10px;" type="text">
+                                        <span class="fsff12" style="float: left;">分钟</span>
+                                    </div>
+                                    <div style="width: 33%;float: left;line-height: 30px; ">
+                                        <span class="fsff12" style="float: left;width: 90px;margin-left: 15px;">在线互动答疑</span>
+                                        <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" [(ngModel)]="com_answerTime1" class="form-control" maxlength="3" style="float: left;width: 50px;height: 30px;margin: 0px 10px;" type="text">
+                                        <span class="fsff12" style="float: left;">分钟</span>
+                                    </div>
+                                </div>
+                                <div class="zuzhiType2" style="padding: 10px;background: #F5F5FA;clear: both;overflow: hidden;display: none;">
+                                    <div style="width: 25%;float: left;line-height: 30px;">
+                                        <span class="fsff12" style="float: left;width: 50px;margin-left: 15px;">嘉宾数</span>
+                                        <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" [(ngModel)]="com_personNum2" class="form-control" maxlength="3" style="float: left;width: 50px;height: 30px;margin: 0px 10px;" type="text">
+                                        <span class="fsff12" style="float: left;">人</span>
+                                    </div>
+                                    <div style="width: 25%;float: left;line-height: 30px;">
+                                        <span class="fsff12" style="float: left;width: 60px;">嘉宾主讲</span>
+                                        <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" [(ngModel)]="com_teachTime2" class="form-control" maxlength="3" style="float: left;width: 50px;height: 30px;margin: 0px 10px;" type="text">
+                                        <span class="fsff12" style="float: left;">分钟</span>
+                                    </div>
+                                    <div style="width: 25%;float: left;line-height: 30px;">
+                                        <span class="fsff12" style="float: left;width: 60px;">教室互动</span>
+                                        <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" [(ngModel)]="com_interactiveTime2" class="form-control" maxlength="3" style="float: left;width: 50px;height: 30px;margin: 0px 10px;" type="text">
+                                        <span class="fsff12" style="float: left;">分钟</span>
+                                    </div>
+                                    <div style="width: 25%;float: left;line-height: 30px; ">
+                                        <span class="fsff12" style="float: left;width: 75px;">在线互动答疑</span>
+                                        <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" [(ngModel)]="com_answerTime2" class="form-control" maxlength="3" style="float: left;width: 50px;height: 30px;margin: 0px 10px;" type="text">
+                                        <span class="fsff12" style="float: left;">分钟</span>
+                                    </div>
+                                </div>
+                                <div class="zuzhiType3" style="padding: 10px;background: #F5F5FA;clear: both;overflow: hidden;display: none;">
+                                    <div style="width: 25%;float: left;line-height: 30px;">
+                                        <span class="fsff12" style="float: left;width: 54px;margin-left: 15px;">教师主讲</span>
+                                        <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" [(ngModel)]="com_teachTime3" class="form-control" maxlength="3" style="float: left;width: 50px;height: 30px;margin: 0px 10px;" type="text">
+                                        <span class="fsff12" style="float: left;">分钟</span>
+                                    </div>
+                                    <div style="width: 25%;float: left;line-height: 30px;">
+                                        <span class="fsff12" style="float: left;width: 60px;">学生汇报数</span>
+                                        <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" [(ngModel)]="com_personNum3" class="form-control" maxlength="3" style="float: left;width: 50px;height: 30px;margin: 0px 10px;" type="text">
+                                        <span class="fsff12" style="float: left;">人</span>
+                                    </div>
+                                    <div style="width: 25%;float: left;line-height: 30px;">
+                                        <span class="fsff12" style="float: left;width: 60px;">学生汇报</span>
+                                        <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" [(ngModel)]="com_interactiveTime3" class="form-control" maxlength="3" style="float: left;width: 50px;height: 30px;margin: 0px 10px;" type="text">
+                                        <span class="fsff12" style="float: left;">分钟</span>
+                                    </div>
+                                    <div style="width: 25%;float: left;line-height: 30px;">
+                                        <span class="fsff12" style="float: left;width: 70px;line-height: 14px;">教师点评或主播点展示</span>
+                                        <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" [(ngModel)]="com_answerTime3" class="form-control" maxlength="3" style="float: left;width: 50px;height: 30px;margin: 0px 10px;" type="text">
+                                        <span class="fsff12" style="float: left;">分钟</span>
+                                    </div>
+                                </div>
+                                <p class="fsff14" style="margin-top: 20px;font-weight: bold;">备注说明（重要）</p>
+                                <textarea maxlength="500" name="hudongCelueShuoming" [(ngModel)]="com_hudongCeDiscri" class="textarea form-control fsff14" style="resize: none;height: 54px;margin-bottom: 20px;"></textarea>
+                                <h3 class="fsff14" style="margin: 0px;font-weight: bold;margin: 10px 0px;">
+                                    添加互动学校
+                                    <a class="pull-right" data-toggle="modal" data-target="#addHudongSchool" style="color: #2570D3;cursor: pointer;font-size: 18px;">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                </h3>
+                                <div class="row fsff12" style="margin: 0px;border-bottom: 1px solid #ccc;line-height: 30px;background:#F5F5FA;">                              
+                                    <div class="col-xs-3 paddingLing" style="text-align: center;">学校及教室</div>
+                                    <div class="col-xs-3 paddingLing" style="text-align: center;">老师及手机号</div>
+                                    <div class="col-xs-2 paddingLing" style="text-align: center;">时间</div>
+                                    <div class="col-xs-2 paddingLing" style="text-align: center;">是否展示PPT</div>                   
+                                    <div class="col-xs-2 paddingLing" style="text-align: center;">操作</div>
+                                </div>
+                                <div class="nano" style="width: 100%;height: 206px;background:#F5F5FA;">
+                                    <div class="nano-content">
+                                        <div class="row fsff12" *ngFor="let item of com_weekLiveRoomList" style="background:#fff;margin: 0px;padding: 5px;height: 44px;margin: 5px;">                       
+                                            <div class="col-xs-3 paddingLing" style="text-align: center;">
+                                                <span title={{item.schoolName}} style="display: inline-block;width: 100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{item.schoolName}}</span><br>
+                                                <span [class.redColor]="item.classroomCode==-888" title={{item.classroomName}}  style="display: inline-block;width: 100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{item.classroomName}}</span>
+                                            </div>
+                                            <div class="col-xs-3 paddingLing" style="text-align: center;">
+                                                <span title={{item.teacherName}} style="display: inline-block;width: 100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{item.teacherName}}</span><br>
+                                                <span>{{item.teacherPhone}}</span>
+                                            </div>
+                                            <div class="col-xs-2 paddingLing" style="text-align: center;height: 34px;line-height: 34px;">{{item.timeLong}}分钟</div>
+                                            <div class="col-xs-2 paddingLing" style="text-align: center;height: 34px;line-height: 34px;">{{com_isHavePptArr[item.isHavePpt]}}</div>                        
+                                            <div class="col-xs-2 paddingLing" style="text-align: center;height: 34px;line-height: 34px;">
+                                                <a style="margin-left: 14px;"><i data-toggle="modal" data-target="#deletRoomTosure" (click)="getClickRoomId(item.id)" class="fa" style="font-size: 16px;color:#00C0EF;cursor: pointer;"><img src="../../../imgs/delte.png" alt=""></i></a>
+                                                <a style="margin-left: 10px;"><i data-toggle="modal" data-target="#updateRoomModel" (click)="getClickRoomIdAndInfo(item.id)" class="fa" style="font-size: 16px;color:#00C0EF;cursor: pointer;"><img src="../../../imgs/editor.png" alt=""></i></a>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="width: 120px;height: 30px;position: relative;left: 50%;margin: 15px 0px;float: left;margin-left: -60px;">
+                                    <div class="fsff14" (click)="ensureCelue()" style="height: 30px;width: 120px;background:#2570D3;color: #fff;float:right;line-height: 30px;text-align: center;cursor: pointer;">确认提交</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngSwitchCase="'infoStep4'" class="nano" style="padding: 20px 30px 0px;height: 530px;">
+                            <div style="padding: 60px 30px 0px;" class="nano-content">
+                                <div class="daojishiDiv">
+                                    <p style="padding-top: 5px;">课程播出时间</p>
+                                    <p>{{weekChoseLiveInfo.startTime|date:'yyyy.MM.dd HH:mm'}}-{{weekChoseLiveInfo.endTime|date:'HH:mm'}}</p>
+                                    <p *ngIf="daojishiIsPlaying" class="fsff16" style="text-align: center;line-height: 45px;">该课程正在直播！</p>
+                                    <p *ngIf="daojishiIsPlayed" class="fsff16" style="text-align: center;line-height: 45px;">该课程已结束！</p>
+                                    <p *ngIf="daojishiIsShow" style="margin-bottom: 6px;">距离上课还有</p>
+                                    <p *ngIf="daojishiIsShow" class="fsff16">
+                                        <span style="margin-right: 5px;">{{daojishi_day}}</span>天
+                                        <span style="margin-right: 5px;margin-left: 5px;">{{daojishi_hour}}</span>小时
+                                        <span style="margin-right: 5px;margin-left: 5px;">{{daojishi_minute}}</span>分
+                                        <span style="margin-right: 5px;margin-left: 5px;">{{daojishi_second}}</span>秒
+                                    </p>
+                                </div>
+                                <div style="width: 360px;margin: 20px auto;clear: both;overflow: hidden;">
+                                    <a class="toYuyinBtn" style="width: 120px;float: left;text-align: center;display: block;cursor: pointer;" href={{com_yuyinUrl}} (click)="jumpToyuyin()" target="_blank">
+                                        <div class="infoYuyinImg"></div>
+                                        <p class="fsff14" style="color: #9DA7C2;">语音频道</p>
+                                    </a>
+                                    <a class="toGaotaBtn" style="width: 120px;float: left;text-align: center;display: block;cursor: pointer;" href={{com_hTowerUrl}} target="_blank">
+                                        <div class="infoGaotaImg"></div>
+                                        <p class="fsff14" style="color: #9DA7C2;">Hightower</p>
+                                    </a>
+                                    <a class="toZhiboBtn" (click)="jumpTolive()" target="_blank" style="width: 120px;float: left;text-align: center;display: block;cursor: pointer;" href={{com_liveUrl}}>
+                                        <div class="infoZhiboImg"></div>
+                                        <p class="fsff14" style="color: #9DA7C2;">直播频道</p>
+                                    </a>
+                                </div>
+                                <p class="fsff14" style="color: #4A8BE9;text-align: center;margin-bottom: 5px;">保障与导播</p>
+                                <div class="infoBaozDiv">
+                                    <div class="infoBaozDivImgCon"></div>
+                                    <span style="width: 100px;display: inline-block;text-align: center;">{{com_zhibanName}}</span>
+                                    <span style="width: 215px;display: inline-block;text-align: center;">{{com_zhibanPhone}}</span>
+                                </div>
+                                <div class="infoZhuDiv" *ngFor="let room of com_liveDetailInfozhuRoom">
+                                    <div class="infoZhuDivImgCon"></div>
+                                    <span style="width: 100px;display: inline-block;text-align: center;">{{room.daoboName}}</span>
+                                    <span style="width: 215px;display: inline-block;text-align: center;">{{room.daoboPhone}}</span>
+                                    <span style="display: inline-block;width: 220px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{room.schoolName}}{{room.classroomName}}</span>
+                                </div>
+                                <div class="infoHuDiv" *ngFor="let room of com_liveDetailInfohuRoom">
+                                    <div class="infoHuDivImgCon"></div>
+                                    <span style="width: 100px;display: inline-block;text-align: center;">{{room.daoboName}}</span>
+                                    <span style="width: 215px;display: inline-block;text-align: center;">{{room.daoboPhone}}</span>
+                                    <span style="display: inline-block;width: 220px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{room.schoolName}}{{room.classroomName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngSwitchCase="'infoStep5'" style="padding: 30px 50px 0px;height: 530px;" class="treeMenuCon infoStep5 nano">
+                            <div style="padding: 30px 50px 0px;" class="nano-content">
+                                <ul class="fixSidebar-menu">
+                                    <li class="fsff12" style="display: block;color: #000;border-left: 5px solid #000;padding-left: 10px;margin-bottom: 10px;font-weight: bold;">问题记录</li>
+                                    <li class="treeview treeviewHover" style="border-bottom: 10px solid #fff;">
+                                        <a class="fsff14" style="background: #F5F5FA;" href="javascript:;">
+                                            <span style="color: #000;">主讲教师授课问题</span>                                   
+                                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style="color: #2570D3;font-size: 18px;"></i></span>
+                                        </a>
+                                        <ul class="treeview-menu" style="background: #F5F5FA;margin: 0px;padding: 0px;">
+                                            <li>
+                                                <textarea class="form-control com_hisTeacherProblem" rows="3" name="com_hisTeacherProblem" [(ngModel)]="com_hisTeacherProblem" cols=""  style="resize: none;word-break: break-all;background: #F5F5FA;"></textarea>
+                                            </li>
+                                        </ul>                   
+                                    </li>
+                                    <li class="treeview treeviewHover" style="border-bottom: 10px solid #fff;">
+                                        <a class="fsff14" style="background: #F5F5FA;" href="javascript:;">
+                                            <span style="color: #000;">主播点教室问题</span>                                   
+                                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style="color: #2570D3;font-size: 18px;"></i></span>
+                                        </a>
+                                        <ul class="treeview-menu" style="background: #F5F5FA;margin: 0px;padding: 0px;">
+                                            <li>
+                                                <textarea class="form-control com_hisSpeakerClassroomProblem" rows="3" cols="" name="com_hisSpeakerClassroomProblem" [(ngModel)]="com_hisSpeakerClassroomProblem" style="resize: none;word-break: break-all;background: #F5F5FA;"></textarea>
+                                            </li>
+                                        </ul>                   
+                                    </li>
+                                    <li class="treeview treeviewHover" style="border-bottom: 10px solid #fff;">
+                                        <a class="fsff14" style="background: #F5F5FA;" href="javascript:;">
+                                            <span style="color: #000;">互动点教室问题</span>                                   
+                                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style="color: #2570D3;font-size: 18px;"></i></span>
+                                        </a>
+                                        <ul class="treeview-menu" style="background: #F5F5FA;margin: 0px;padding: 0px;">
+                                            <li>
+                                                <textarea class="form-control com_hisInteractiveClassroomProblem" rows="3" cols="" name="com_hisInteractiveClassroomProblem" [(ngModel)]="com_hisInteractiveClassroomProblem" style="resize: none;word-break: break-all;background: #F5F5FA;"></textarea>
+                                            </li>
+                                        </ul>                   
+                                    </li>
+                                    <li class="treeview treeviewHover" style="border-bottom: 10px solid #fff;">
+                                        <a class="fsff14" style="background: #F5F5FA;" href="javascript:;">
+                                            <span style="color: #000;">导播保障问题</span>                                   
+                                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style="color: #2570D3;font-size: 18px;"></i></span>
+                                        </a>
+                                        <ul class="treeview-menu" style="background: #F5F5FA;margin: 0px;padding: 0px;">
+                                            <li>
+                                                <textarea class="form-control com_hisDaoboProblem" rows="3" cols="" name="com_hisDaoboProblem" [(ngModel)]="com_hisDaoboProblem" style="resize: none;word-break: break-all;background: #F5F5FA;"></textarea>
+                                            </li>
+                                        </ul>                   
+                                    </li>
+                                    <li class="treeview treeviewHover" style="border-bottom: 10px solid #fff;">
+                                        <a class="fsff14" style="background: #F5F5FA;" href="javascript:;">
+                                            <span style="color: #000;">其他问题</span>                                   
+                                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style="color: #2570D3;font-size: 18px;"></i></span>
+                                        </a>
+                                        <ul class="treeview-menu" style="background: #F5F5FA;margin: 0px;padding: 0px;">
+                                            <li>
+                                                <textarea class="form-control com_hisOtherProblem" rows="3" cols="" name="com_hisOtherProblem" [(ngModel)]="com_hisOtherProblem" style="resize: none;word-break: break-all;background: #F5F5FA;"></textarea>
+                                            </li>
+                                        </ul>                   
+                                    </li>
+                                    <li class="fsff12" style="display: block;color: #000;border-left: 5px solid #000;padding-left: 10px;margin-bottom: 10px;font-weight: bold;">综合评价</li>
+                                    <textarea class="form-control com_hisFeedbackDetail" rows="3" cols="" name="com_hisFeedbackDetail" [(ngModel)]="com_hisFeedbackDetail" style="resize: none;word-break: break-all;background: #F5F5FA;"></textarea>
+                                </ul>
+                                <div (click)="submitFeedBackInfo()" class="btn btn-app submitFeedBackInfo" style="padding: 10px 5px;margin: 30px auto 0px;display: block;width: 80px;">
+                                    <i class="fa fa-paper-plane" style="color:#2570D3;"></i>
+                                    <span class="fsff14">提交</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p *ngIf="!weekIsHaveLive" class="fsff16" style="line-height: 350px;text-align: center;height: 636px;margin: 0px;">当前时间段暂无见面课！</p>
+                <div class="modal fade" style="z-index: 2000;" id="deletRoomTosure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document" style="width: 500px;">
+                        <div class="modal-content" style="padding-top: 20px;background: #00c0ef;">
+                            <div class="modal-body" style="color: #fff;">
+                                <i class="icon fa fa-warning" style="color: #fff;margin-right: 15px;"></i>
+                                <span id="deletRoomTosureTip">
+                                    确认删除互动教室?
+                                </span>
+                            </div>
+                            <div class="modal-footer" style="padding-top: 0px;border: none;">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button (click)="deleteRoom()" type="button" style="padding: 4px 12px;" class="btn btn-default" data-dismiss="modal">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="updateRoomModel" role="dialog" aria-labelledby="myModalLabels" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabelsr">修改互动学校</h4>
+                        </div>
+                        <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <form class="form-horizontal" role="form">                               
+                                        <div class="form-group">
+                                            <label for="updateschoolx" class="col-sm-4 control-label">互动学校</label>
+                                            <div class="col-sm-8">
+                                                <select id="updateschoolx" class="form-control select2-hudongSchool">
+                                                    <option></option>
+                                                    <option value={{item.schoolCode}} *ngFor="let item of com_hudongSchoolList">{{item.schoolName}}</option>                                       
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateclassroomx" class="col-sm-4 control-label">互动教室</label>
+                                            <div class="col-sm-8">
+                                                <select id="updateclassroomx" class="form-control">
+                                                    <option></option>
+                                                    <option value={{item.classroomCode}} *ngFor="let item of com_hudongClassroom">{{item.classroomName}}&nbsp;{{item.devName}}</option>                           
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateTeachNamex" class="col-sm-4 control-label">老师姓名</label>
+                                            <div class="col-sm-8">
+                                            <input type="text" [(ngModel)]="com_newTeacherNamex"  name="updateTeachNamex" class="form-control" placeholder="老师姓名">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updatephonex" class="col-sm-4 control-label">老师手机号码</label>
+                                            <div class="col-sm-8">
+                                            <input type="text" [(ngModel)]="com_newTeacherPhonex" name="updatephonex" class="form-control" required  maxlength="11" placeholder="手机号码">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateTimeLongx" class="col-sm-4 control-label">时长(分钟)</label>
+                                            <div class="col-sm-8">
+                                            <input type="text" [(ngModel)]="com_newTimeLongx" name="updateTimeLongx" class="form-control" maxlength="3" placeholder="时长">
+                                            </div>
+                                        </div>                                
+                                        <div class="form-group">
+                                            <label for="pptx" class="col-sm-4 control-label">是否展示PPT</label>
+                                            <div class="col-sm-8">
+                                                <label class="radio-inline">
+                                                <input type="radio" value="2" checked name="updatepptx"> 是
+                                                </label>
+                                                <label class="radio-inline">
+                                                <input type="radio" value="1" name="updatepptx"> 否
+                                                </label>
+                                            </div>
+                                        </div>                                                  
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default guanbiXiuHudong"  data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-primary" (click)="updateRoom()">修改</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="addHudongSchool" role="dialog" aria-labelledby="myModalLabels" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabels">添加互动学校</h4>
+                        </div>
+                        <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <form class="form-horizontal" role="form">                               
+                                        <div class="form-group">
+                                            <label for="updateschool" class="col-sm-4 control-label">互动学校</label>
+                                            <div class="col-sm-8">
+                                                <select id="updateschool" class="form-control select2-hudongSchool">
+                                                    <option></option>
+                                                    <option value={{item.schoolCode}} *ngFor="let item of com_hudongSchoolList">{{item.schoolName}}</option>                                       
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateclassroom" class="col-sm-4 control-label">互动教室</label>
+                                            <div class="col-sm-8">
+                                                <select id="updateclassroom" class="form-control">
+                                                    <option></option>
+                                                    <option value={{item.classroomCode}} *ngFor="let item of com_hudongClassroom">{{item.classroomName}}&nbsp;{{item.devName}}</option>                        
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateTeachName" class="col-sm-4 control-label">老师姓名</label>
+                                            <div class="col-sm-8">
+                                            <input type="text" [(ngModel)]="com_newTeacherName"  name="updateTeachName" class="form-control" placeholder="老师姓名">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updatephone" class="col-sm-4 control-label">老师手机号码</label>
+                                            <div class="col-sm-8">
+                                            <input type="text" [(ngModel)]="com_newTeacherPhone" name="updatephone" class="form-control" required  maxlength="11" placeholder="手机号码">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateTimeLong" class="col-sm-4 control-label">时长(分钟)</label>
+                                            <div class="col-sm-8">
+                                            <input onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" type="text" [(ngModel)]="com_newTimeLong" name="updateTimeLong" class="form-control" maxlength="3" placeholder="时长">
+                                            </div>
+                                        </div>                                
+                                        <div class="form-group">
+                                            <label for="ppt" class="col-sm-4 control-label">是否展示PPT</label>
+                                            <div class="col-sm-8">
+                                                <label class="radio-inline">
+                                                <input type="radio" value="2" checked name="updateppt"> 是
+                                                </label>
+                                                <label class="radio-inline">
+                                                <input type="radio" value="1" name="updateppt"> 否
+                                                </label>
+                                            </div>
+                                        </div>                                                  
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default guanbiHudong"  data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-primary" (click)="createRoom()">添加</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section *ngIf="!com_isCuKebiao" class="invoice" style="padding: 0px;border:0px;margin-top: 25px;">
+        <div class="box box-solid" style="border-top: none;margin-bottom: 0px;">
+            <div class="box-header" style="padding: 15px;padding-left: 0px;">
+                <div class="col-xs-3" style="padding: 0px;clear: both;overflow: hidden;">
+                    <h1 class="box-title" style="width: 150px;color: #fff;background: #F04949;height: 60px;text-align: center;margin: 0 auto;display: block;">
+                        <p class="fsff16" style="font-weight: bold;margin: 0px;padding-top: 12px;">
+                            {{nSRemainPaikeDay}} <span class="fsff12" style="font-weight: normal;">天</span>
+                        </p>
+                        <p class="fsff12" style="padding-top: 5px;">距离排课结束</p>
+                    </h1>
+                </div>
+                <div style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;">{{nSTodayAssignedCourseQuantity}}</p>
+                    <p class="fsff12" style="color: #A0A0A1;">新增课程</p>
+                </div>
+                <div style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;">{{nSPaikeQuantity}}</p>
+                    <p class="fsff12" style="color: #A0A0A1;">已排课</p>
+                </div>
+                <div style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;">{{nSAssignedCourseQuantity}}</p>
+                    <p class="fsff12" style="color: #A0A0A1;">已分配课程</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="invoice" style="padding: 0px;border:0px;">
+        <div *ngIf="com_ishaveFenpeiCourse" class="row" style="background: #ECF0F5;">
+            <div class="col-xs-3" style="padding-right: 0px;">
+                <div class="box box-solid" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);margin-bottom: 0px;border-radius: 0px;">
+                    <div class="box-body nano" style="border: none;overflow: hidden;padding: 0px;height: 458px;">
+                        <div style="height: 10px;background: #fff;position: relative;z-index: 100;margin: 0 10px;"></div>
+                        <div class="padding10 nano-content">
+                            <ul class="products-list product-list-in-box" style="font-family: 微软雅黑;min-height: 270px;">
+                                <li *ngFor="let course of com_fenpeiCourseList" [class.clickFenpeiCourse]="course.id==currentCourseID" class="item fenpeiCourse" style="padding:0px;margin-bottom: 5px;
+                                position: relative;height: 50px;cursor: pointer;padding-left: 40px;padding-right: 15px;" (click)="switchCourse(course.id)">
+                                    <span style="width: 10px;height: 10px;border-radius: 50%;display: inline-block;position: absolute;left: 10px;top: 20px;" [style.background-color]="com_staColorArr[course.status]"></span>
+                                    <span style="font-size:12px;display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;margin-top: 8px;font-weight: bold;">{{course.courseName}}</span>
+                                    <span style="font-size: 12px;position: absolute;left: 40px;top: 28px;">{{course.schoolName}}</span>
+                                    <i class="fa  fa-caret-right" style="color: #fff;position: absolute;top: 18px;right: 10px;"></i>
+                                    <div *ngIf="course.biangengIng" class="binggenging fsff14" style="width: 100%;height: 50px;position: absolute;background: rgba(0,0,0,0.7);
+                                        top: 0px;left: 0px;text-align: center;line-height: 50px;color: #fff;">
+                                        变更中...    
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="height: 10px;background: #fff;position: relative;z-index: 100;margin: 0 10px;top: 438px;"></div>   
+                    </div>               
+                </div>
+            </div>
+            <div class="col-xs-9" style="border-left: 10px solid #ECF0F5;padding-left: 0px;background: #ECF0F5;">
+                <div *ngIf="isHaveFenpeiLive" class="box-solid">
+                    <div class="box-header" style="padding: 10px 0px;text-align: center;height: 54px;">
+                        <p *ngIf="canEditor" style="float: left;height: 34px;line-height: 34px;">
+                            <span class="fsff14" style="color: #000;font-weight: bold;">联动修改</span>
+                            <label class="switch-btn circle-style pull-right" style="margin-top: 8px;margin-left: 10px;">
+                                <input class="checked-switch timeFollow" checked type="checkbox" (click)="switchTimeFollow()" />                             
+                                <span class="text-switch"  data-yes="开" data-no="关"></span> 
+                                <span class="toggle-btn"></span>
+                            </label>
+                        </p>
+                        <div style="zoom: 1;display: inline-block;">
+                            <div *ngIf="com_cUisRun" class="tongbuBtn fsff14 btnHover" data-toggle="modal" data-target="#tongbuAlertWrap">
+                                同步
+                            </div>
+                            <div class="paikeBtn fsff14 btnHover" data-toggle="modal" data-target="#arrangementDetail" (click)="getArrangementDetail()">
+                                排课
+                            </div>
+                            <div *ngIf="com_isshowPaikewanC" class="baocunBtn fsff14 btnHover" (click)="updateLiveInfo()">
+                                保存
+                            </div>
+                            <div *ngIf="com_BiangengBaocun" class="baocunBtn fsff14 btnHover" (click)="updateLiveInfo()">
+                                保存
+                            </div>
+                        </div>
+                        <div *ngIf="com_isshowPaikewanC" class="liveInfoBtnRight fsff14" (click)="previewPaikeCompleted()">
+                            预排完成
+                        </div>
+                        <div *ngIf="com_isshowBiangengBtn" (click)="beginRequirementchange()" class="liveInfoBtnRight fsff14">
+                            需求变更
+                        </div>
+                        <div *ngIf="com_isshowBiangengIng" class="liveInfoBtnRight fsff14" style="background: #97B6DB;cursor: not-allowed;">
+                            变更中
+                        </div>
+                        <div *ngIf="com_isshowBiangengPost" class="liveInfoBtnRight fsff14" (click)="releaseCourse()">
+                            变更发布
+                        </div>
+                    </div>
+
+                    <div *ngIf="!canEditor" class="box-body" style="padding: 10px 0px;">
+                        <div *ngFor="let live of currentLiveList;let sort=index;" style="position: relative;" class="meetLiveInfoCard">
+                            <p style="height: 17px;">
+                                <span class="fsff12" title={{live.liveName}} style="color: #2570D3;font-weight: bold;display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: left;width: 250px;">{{live.liveName}}</span>
+                                <label class="switch-btn circle-style pull-right" style="margin-top: 3px;cursor: auto;">
+                                    <input class="checked-switch liveKaiguan" disabled checked type="checkbox" />    
+                                    <span class="text-switch"  data-yes="开" data-no="关"></span> 
+                                    <span class="toggle-btn"></span>
+                                </label>
+                            </p>
+                            <p class="fsff12 infoTimeCon" style="padding-right: 20px;cursor: auto;">
+                                时间
+                                <span class="pull-right timeSpanCon" style="color: #8792BA;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: block;width: 80%;text-align: right;">{{live.startTime|date:'yyyy/MM/dd HH:mm'}}-{{live.endTime|date:'HH:mm'}}</span>
+                            </p>
+                            <p class="fsff12 infoRoomCon" style="padding-right: 20px;cursor: auto;">
+                                教室
+                                <span class="pull-right classRoomSpanCon" title='{{live.schoolCode}}@#{{live.schoolName}}@#{{live.classroomCode}}@#{{live.classroomName}}' style="color: #8792BA;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 250px;text-align: right;">{{live.schoolName}}{{live.classroomName}}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div *ngIf="canEditor" class="box-body" style="padding: 10px 0px;">
+                        <div *ngFor="let live of currentLiveList;let sort=index;" style="position: relative;" class="meetLiveInfoCard">
+                            <p style="height: 17px;">
+                                <span class="fsff12" title={{live.liveName}} style="color: #2570D3;font-weight: bold;display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: left;width: 250px;">{{live.liveName}}</span>
+                                <label class="switch-btn circle-style pull-right" style="margin-top: 3px;">
+                                    <input class="checked-switch liveKaiguan" checked type="checkbox" (click)="switchLiveKaiGuan(sort)" />                             
+                                    <span class="text-switch"  data-yes="开" data-no="关"></span> 
+                                    <span class="toggle-btn"></span>
+                                </label>
+                            </p>
+                            <p class="fsff12 infoTimeCon" (click)="getSelectLiveTime(sort)">
+                                时间
+                                <span class="pull-right" style="color: #8792BA;padding-left: 10px;">></span>
+                                <span class="pull-right timeSpanCon" style="color: #8792BA;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: block;width: 80%;text-align: right;">{{live.startTime|date:'yyyy/MM/dd HH:mm'}}-{{live.endTime|date:'HH:mm'}}</span>
+                            </p>
+                            <p class="fsff12 infoRoomCon" (click)="getSelectLiveClassRoom(sort)" data-toggle="modal" data-target="#selectLiveClassRoom">
+                                教室
+                                <span class="pull-right" style="color: #8792BA;padding-left: 10px;">></span>
+                                <span class="pull-right classRoomSpanCon" title='{{live.schoolCode}}@#{{live.schoolName}}@#{{live.classroomCode}}@#{{live.classroomName}}' style="color: #8792BA;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 250px;text-align: right;">{{live.schoolName}}{{live.classroomName}}</span>
+                            </p>
+                        </div>
+                        <div class="modal fade" id="selectLiveClassRoom" role="dialog" aria-labelledby="myModalLabels" aria-hidden="true">
+                            <div class="modal-dialog" style="width: 450px;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title" id="myModalLabels">选择见面课学校教室</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="form-group">
+                                                        <label for="liveProvinceSelect" class="col-sm-4 control-label">省区</label>
+                                                        <div class="col-sm-8">
+                                                            <select id="liveProvinceSelect" class="form-control">
+                                                                <option></option>
+                                                                <option value="北京市">北京市</option>
+                                                                <option value="天津市">天津市</option>
+                                                                <option value="上海市">上海市</option>
+                                                                <option value="重庆市">重庆市</option>
+                                                                <option value="河北省">河北省</option>
+                                                                <option value="河南省">河南省</option>
+                                                                <option value="云南省">云南省</option>
+                                                                <option value="辽宁省">辽宁省</option>
+                                                                <option value="黑龙江省">黑龙江省</option>
+                                                                <option value="湖南省">湖南省</option>
+                                                                <option value="安徽省">安徽省</option>
+                                                                <option value="山东省">山东省</option>
+                                                                <option value="新疆维吾尔自治区">新疆维吾尔自治区</option>
+                                                                <option value="江苏省">江苏省</option>
+                                                                <option value="浙江省">浙江省</option>
+                                                                <option value="江西省">江西省</option>
+                                                                <option value="湖北省">湖北省</option>
+                                                                <option value="广西壮族自治区">广西壮族自治区</option>
+                                                                <option value="甘肃省">甘肃省</option>
+                                                                <option value="山西省">山西省</option>
+                                                                <option value="内蒙古自治区">内蒙古自治区</option>
+                                                                <option value="陕西省">陕西省</option>
+                                                                <option value="吉林省">吉林省</option>
+                                                                <option value="福建省">福建省</option>
+                                                                <option value="贵州省">贵州省</option>
+                                                                <option value="广东省">广东省</option>
+                                                                <option value="青海省">青海省</option>
+                                                                <option value="西藏自治区" >西藏自治区</option>
+                                                                <option value="四川省">四川省</option>
+                                                                <option value="宁夏回族自治区">宁夏回族自治区</option>
+                                                                <option value="海南省">海南省</option>
+                                                                <option value="台湾省">台湾省</option>
+                                                                <option value="香港特别行政区">香港特别行政区</option>
+                                                                <option value="澳门特别行政区">澳门特别行政区</option>             
+                                                            </select>
+                                                        </div>
+                                                    </div>                          
+                                                    <div class="form-group">
+                                                        <label for="liveSchoolSelect" class="col-sm-4 control-label">学校</label>
+                                                        <div class="col-sm-8">
+                                                            <select id="liveSchoolSelect" class="form-control">
+                                                                <option></option>
+                                                                <option value={{item.schoolCode}} *ngFor="let item of liveSchoolList">{{item.schoolName}}</option>             
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="liveClassroomSelect" class="col-sm-4 control-label">主讲教室</label>
+                                                        <div class="col-sm-8">
+                                                            <select id="liveClassroomSelect" class="form-control">
+                                                                <option></option>
+                                                                <option value={{item.classroomCode}} *ngFor="let item of liveClassroomList">{{item.classroomName}}&nbsp;{{item.devName}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>                                              
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default guanbiClassroomSelect"  data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" (click)="selectLiveClassRoom()">选择</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!isHaveFenpeiLive" class="fsff16" style="text-align: center;line-height: 200px;height: 458px;">
+                    <div *ngIf="com_cUisRun" style="float: right;" class="tongbuBtn fsff14 btnHover" data-toggle="modal" data-target="#tongbuAlertWrap">
+                        同步
+                    </div>
+                    当前课程暂无见面课!
+                </div>
+                <div class="modal fade" style="z-index: 2000;" id="tongbuAlertWrap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document" style="width: 500px;">
+                        <div class="modal-content" style="padding-top: 20px;background: #00c0ef;">
+                            <div class="modal-body" style="color: #fff;padding-left: 46px;text-align: left;">
+                                <i class="icon fa fa-warning" style="color: #fff;position: absolute;left: 18px;top: 18px;"></i>
+                                <span id="tongbuAlertTip">
+                                    执行该操作会同步学堂建课模块的数据覆盖本系统见面课数据，是否确认同步？
+                                </span>
+                            </div>
+                            <div class="modal-footer" style="padding-top: 0px;border: none;">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button (click)="synchronizeLiveModel()" type="button" style="padding: 4px 12px;" class="btn btn-default" data-dismiss="modal">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!com_ishaveFenpeiCourse" class="fsff16" style="text-align: center;line-height: 200px;height: 458px;">你当前暂未分配到课程！</div>
+    </section>
+</div>
+<div *ngIf="!com_isHaveKebiao" class="noKebiao" style="height: 400px;line-height: 320px;font-size: 20px;font-family: 微软雅黑;text-align: center;position: relative;z-index: 2;background: #ECF0F5;">
+    当前暂无课表!
+</div>
+<div class="modal fade" style="z-index: 2000;font-family: 微软雅黑;" id="arrangementDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width: 1100px;">
+        <div class="modal-content arrangeContent" style="background: #EFEFEF;padding-bottom:1px;clear: both;overflow: hidden;position: relative;">
+            <div class="modal-top" style="background:#fff;border-bottom:1px solid #DCDDDD;padding:0px 0px 0 20px;overflow: auto;">
+                <div class="month" style="overflow: auto;float:left;padding-top: 20px;">
+                    <p style="float:left;width:31px;margin-right:12px;text-align: center;" *ngFor="let month of monthArrToShow;let i=index;">
+                        {{month.slice(5,6)=='0'?month.slice(6,7):month.slice(5,7)}}月
+                        <input style="margin-top: 3px;cursor:pointer;opacity:0;float: left;margin-left: 7px;" type="checkbox" checked="checked" [attr.value]="month.slice(5,6)=='0'?month.slice(6,7):month.slice(5,7)" #cUcheck (click)="monthCheck(i,cUcheck.value,cUcheck.checked,cUlabelVal,cUcheck)" />
+                        <label #cUlabelVal style="width: 12px;height: 12px;margin: 0 auto;display: block;background:url(../../../imgs/xuanzhong.png) no-repeat;margin-top: 3px;"></label>
+                    </p>
+                </div>
+                <div class="searchWrap" style="overflow: auto;float:left;margin-left: 20px;padding-top: 20px;">
+                    <div class="form-group" style="float:left;overflow: auto;margin-right:8px;">
+                        <label style="padding-top: 0px;float:left;line-height:35px;margin-right:5px;font-size:12px;">省区</label>
+                        <select #cUPselect (change)="searchprovinces(cUPselect.value)" class="form-control cUPselect" style="width:120px;float:left;">        
+                            <option value="">请选择</option>
+                            <option value="北京市">北京市</option>
+                            <option value="天津市">天津市</option>
+                            <option value="上海市">上海市</option>
+                            <option value="重庆市">重庆市</option>
+                            <option value="河北省">河北省</option>
+                            <option value="河南省">河南省</option>
+                            <option value="云南省">云南省</option>
+                            <option value="辽宁省">辽宁省</option>
+                            <option value="黑龙江省">黑龙江省</option>
+                            <option value="湖南省">湖南省</option>
+                            <option value="安徽省">安徽省</option>
+                            <option value="山东省">山东省</option>
+                            <option value="新疆维吾尔自治区">新疆维吾尔自治区</option>
+                            <option value="江苏省">江苏省</option>
+                            <option value="浙江省">浙江省</option>
+                            <option value="江西省">江西省</option>
+                            <option value="湖北省">湖北省</option>
+                            <option value="广西壮族自治区">广西壮族自治区</option>
+                            <option value="甘肃省">甘肃省</option>
+                            <option value="山西省">山西省</option>
+                            <option value="内蒙古自治区">内蒙古自治区</option>
+                            <option value="陕西省">陕西省</option>
+                            <option value="吉林省">吉林省</option>
+                            <option value="福建省">福建省</option>
+                            <option value="贵州省">贵州省</option>
+                            <option value="广东省">广东省</option>
+                            <option value="青海省">青海省</option>
+                            <option value="西藏自治区" >西藏自治区</option>
+                            <option value="四川省">四川省</option>
+                            <option value="宁夏回族自治区">宁夏回族自治区</option>
+                            <option value="海南省">海南省</option>
+                            <option value="台湾省">台湾省</option>
+                            <option value="香港特别行政区">香港特别行政区</option>
+                            <option value="澳门特别行政区">澳门特别行政区</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="float:left;overflow: auto;margin-right:8px;">
+                        <label style="padding-top: 0px;float:left;line-height:35px;margin-right:5px;font-size:12px;">学校</label>
+                        <select class="form-control pkschoolSe" style="width:120px;float:left;" #cUpksckool (change)="searchschools(cUpksckool.value)">
+                            <option value="">请选择</option>
+                            <option value={{cUpksckool.schoolCode}} *ngFor="let cUpksckool of com_pkSchoolList">{{cUpksckool.schoolName}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="float:left;overflow: auto;margin-right:8px;">
+                        <label style="padding-top: 0px;float:left;line-height:35px;margin-right:5px;font-size:12px;">教室</label>   
+                        <select style="width:120px;float:left;" class="form-control pkroomSe" #cUpkroom>
+                            <option value="">请选择</option>                              
+                            <option  *ngFor="let cUroom of com_pkRoomList" value={{cUroom.classroomCode}}>{{cUroom.classroomName}}&nbsp;{{cUroom.devName}}</option>
+                        </select>
+                    </div>
+                    <button type="button" style="padding: 6px 20px;background:#246ED3;color:#fff;" class="btn btn-default" (click)="pkEnter(cUPselect.value,cUpksckool.value,cUpkroom.value)">查询</button> 
+                </div>
+                <div style="float: right;width: 226px;border-left: 1px solid #ccc;height: 76px;padding-top: 20px;">
+                    <button (click)="paikeTianchong()" type="button" style="padding: 6px 20px;background:#246ED3;color:#fff;margin-left: 28px;" data-dismiss="modal" class="btn btn-default">确定</button>
+                    <button type="button" style="padding: 6px 20px;background:#EFEFEF;color:#000;margin-left: 30px;" class="btn btn-default" data-dismiss="modal" (click)="pkcancel()">关闭</button>
+                </div>
+            </div>
+            <div style="width: 836px;margin-top:20px;margin-left:20px;">
+                <div class="ArrangementDetail" style="width:836px;margin:10px 0px;color: #333;padding:15px 15px 8px 15px;background:#fff;min-height:100px;" *ngFor="let cUitem of com_ArrangementDetailArr;">
+                    <ul id="m{{cUitem.month}}" class="menu" style="width: 806px;">
+                        <p style="color:#246ED3;"><span class="item-month">{{cUitem.month}}月</span>{{cUitem.allroom}}</p>
+                        <li class="activeWeek" *ngFor="let cUdata of cUitem;let i=index;" [class.colorName]="cUdata.week==chooseWeek">
+                            <span class="weekNum">{{weekArray[cUdata.week]}}</span>
+                            <span class="monthNum">{{i+1}}</span>
+
+                            <span #room1 [ngClass]="cUdata.period1.over=='0'?'noover':'over'" (click)="checkTimer(cUdata.period1.totalLiveQuantity,1,cUitem.month,i+1,room1,cUdata.week)">
+                                <span [class.canSelRoom]="cUdata.week==chooseWeek && com_roomSelFlag==1" style="position: relative;" [ngClass]="cUdata.period1.hasClassroom=='1'?'hasRoom':null">
+                                    {{cUdata.period1.totalLiveQuantity}}
+                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../imgs/pkSelectRoom.png" alt="">
+                                </span>
+                            </span>
+
+                            <span #room2 [ngClass]="cUdata.period2.over=='0'?'noover':'over'" (click)="checkTimer(cUdata.period2.totalLiveQuantity,2,cUitem.month,i+1,room2,cUdata.week)">
+                                <span [class.canSelRoom]="cUdata.week==chooseWeek && com_roomSelFlag==2" style="position: relative;" [ngClass]="cUdata.period2.hasClassroom=='1'?'hasRoom':null">
+                                    {{cUdata.period2.totalLiveQuantity}}
+                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../imgs/pkSelectRoom.png" alt="">
+                                </span>
+                            </span>
+
+                            <span #room3 [ngClass]="cUdata.period3.over=='0'?'noover':'over'" (click)="checkTimer(cUdata.period3.totalLiveQuantity,3,cUitem.month,i+1,room3,cUdata.week)">
+                                <span [class.canSelRoom]="cUdata.week==chooseWeek && com_roomSelFlag==3" style="position: relative;" [ngClass]="cUdata.period3.hasClassroom=='1'?'hasRoom':null">
+                                    {{cUdata.period3.totalLiveQuantity}}
+                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../imgs/pkSelectRoom.png" alt="">
+                                </span>
+                            </span>
+
+                            <span #room4 [ngClass]="cUdata.period4.over=='0'?'noover':'over'" (click)="checkTimer(cUdata.period4.totalLiveQuantity,4,cUitem.month,i+1,room4,cUdata.week)">
+                                <span [class.canSelRoom]="cUdata.week==chooseWeek && com_roomSelFlag==4" style="position: relative;" [ngClass]="cUdata.period4.hasClassroom=='1'?'hasRoom':null">
+                                    {{cUdata.period4.totalLiveQuantity}}
+                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../imgs/pkSelectRoom.png" alt="">
+                                </span>
+                            </span>
+
+                            <span #room5 [ngClass]="cUdata.period5.over=='0'?'noover':'over'" (click)="checkTimer(cUdata.period5.totalLiveQuantity,5,cUitem.month,i+1,room5,cUdata.week)">
+                                <span [class.canSelRoom]="cUdata.week==chooseWeek && com_roomSelFlag==5" style="position: relative;" [ngClass]="cUdata.period5.hasClassroom=='1'?'hasRoom':null">
+                                    {{cUdata.period5.totalLiveQuantity}}
+                                    <img style="margin-top: 1px;display: none;position: absolute;top: -1px;left: 0px;" src="../../../imgs/pkSelectRoom.png" alt="">
+                                </span>
+                            </span>
+                            
+                            <span class="allNum">{{cUdata.totalLiveQuantity}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pkLiveList">
+                <div class="paikeLive" [class.paikeLiveChose]="live.id==com_paiKeLiveId" [class.paikeLiveShowLock]="liveKaiguanList[sort]==2" [class.paikeLiveShowInfo]="live.info==true" *ngFor="let live of liveListForPaike;let sort=index;">
+                    <img style="position: absolute;top: 0px;left: 0px;display: none;" src="../../../imgs/pkSelectRoom.png" alt="">
+                    <p (click)="selectPaikeLive(live.id,sort)" class="fsff14" title={{live.liveName}} style="height: 40px;line-height: 40px;margin-bottom: 0px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{live.liveName}}</p>
+                    <p class="fsff12 paikeTimeinfo" style="border-top: 1px solid #ccc;margin: 0px;padding: 10px 0px;">{{live.livetime}}</p>
+                    <p class="fsff12 paikeRoominfo" style="margin: 0px;padding-bottom: 10px;">
+                        {{live.schoolName}}{{live.classroomName}}
+                    </p>
+                    <div class="liveLock" (click)="paikeKaiLock(sort)">
+                        <i title="解锁" class="fa fa-lock"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="cUinfoWrapper infoWrapper">
+                <div class="icon"></div>
+                <div class="info">
+                    <ul>
+                        <li *ngFor="let cUclassItem of com_classListArray;let i=index;" [ngClass]="i%2==0?'odd':null">
+                            <span class="time">{{cUclassItem.startTime|date:'HH:mm'}}-{{cUclassItem.endTime|date:'HH:mm'}}</span>
+                            <span title={{cUclassItem.liveName}} class="name">{{cUclassItem.liveName}}<br/><span>{{cUclassItem.courseName}}</span></span>
+                            <span [class.redColor]="cUclassItem.schoolCode=='-999'" class="school" [ngClass]="cUclassItem.class==null?null:'lighter'">{{cUclassItem.schoolName}}<span [class.redColor]="cUclassItem.classroomCode=='-888'">{{cUclassItem.classroomName}}</span></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="wrapper"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
