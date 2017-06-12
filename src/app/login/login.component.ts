@@ -12,7 +12,6 @@ declare var $: any;
 })
 export class LoginComponent {
   constructor(public router: Router, private login: Login) {}
-  // tslint:disable-next-line:member-ordering
   public login_userName= '';
   public login_passWord= '';
   setCookie(name: any, value: any) {
@@ -22,7 +21,7 @@ export class LoginComponent {
             var cookieString = name + '=' + encodeURIComponent(value);
         }
         let newDate = new Date();
-        newDate.setTime(newDate.getTime() + 1800 * 1000);
+        newDate.setTime(newDate.getTime() + 1800 * 1000);   //设置半小时登录过期（清除本地cookie）
         // cookieString=cookieString+"; expires="+newDate.toGMTString();
         cookieString = cookieString + '; expires=' + newDate.toUTCString();
         document.cookie = cookieString;
@@ -32,12 +31,27 @@ export class LoginComponent {
         // this.router.navigateByUrl('main');
         this.login.useLogin(this.login_userName, this.login_passWord)
         .subscribe(data => {
-            console.log(data);
-            if (data.successful) {
-                this.setCookie('role', data.result.role);
-                this.setCookie('realname', data.result.realName);
-                this.setCookie('userPic', data.result.userPic);
-                this.setCookie('zhsId', data.result.zhsId);
+            let resData=eval('('+data['_body']+')');
+            console.log(resData);
+            if (resData.successful) {
+                //以下模拟不同角色登录验证
+                if(this.login_userName=='role0'){
+                    this.setCookie('role', "0");
+                }else if(this.login_userName=='role1'){
+                    this.setCookie('role', "1");
+                }else if(this.login_userName=='role2'){
+                    this.setCookie('role', "2");
+                }else if(this.login_userName=='role3'){
+                    this.setCookie('role', "3");
+                }else if(this.login_userName=='role4'){
+                    this.setCookie('role', "4");
+                }else{
+                    $('#alertTip').html('用户信息错误!');
+                    $('#alertWrap').modal('show');
+                    return;
+                }
+                this.setCookie('realname', resData.result.realName);
+                this.setCookie('userPic', resData.result.userPic);
                 this.router.navigateByUrl('main');
             }else {
                 $('#alertTip').html('用户信息错误!');

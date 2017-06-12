@@ -1,0 +1,784 @@
+<section *ngIf="!dir_isHaveKebiao" class="invoice" style="margin:0px;border:none;">
+    <div class="row">
+        <div class="col-lg-12" style="height: 15px;line-height: 15px;color:#00C0EF ;text-align: center;cursor: pointer;">
+            <a style="cursor: pointer;" data-toggle="modal" class="fsff14" data-target="#addScheduleModal"><i class="fa fa-plus" style="padding-right: 5px;"></i>新建课表</a>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">新建课表</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" name="scheduleForm" novalidate>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">课表名称</label>
+                        <div class="col-sm-9">
+                            <input type="text" required   [(ngModel)]="dir_newscheduleName" name="newscheduleName" class="form-control" placeholder="课表名称">
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: 34px;">
+                        <label class="col-xs-3 control-label" style="font-size:12px;padding-top: 0px;">课表开始时间</label>
+                        <div class="col-xs-9">
+                            <input type="text"  class="form-control"  [(ngModel)]="dir_newscheduleStartTime" name="newscheduleStartTime" id="scheduleStartTime"  placeholder="课表开始时间">
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: 34px;">
+                        <label class="col-xs-3 control-label" style="font-size:12px;padding-top: 0px;">课表结束时间</label>
+                        <div class="col-xs-9">
+                            <input type="text"  class="form-control"  [(ngModel)]="dir_newscheduleEndTime" name="newscheduleEndTime" id="scheduleEndTime" placeholder="课表结束时间">
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: 34px;">
+                        <label class="col-xs-3 control-label" style="font-size:12px;padding-top: 0px;" >首次排课截止时间</label>
+                        <div class="col-xs-9">
+                            <input type="text"  class="form-control"  [(ngModel)]="dir_newscheduleDeadlineTime" name="newscheduleDeadlineTime" id="scheduleDeadlineTime" placeholder="首次排课截止时间">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">选择学期</label>
+                        <div class="col-sm-9">
+                            <select id="recruitId" class="form-control select2-updateRole">
+                                <option value='' disabled selected style='display:none;'>请选择学期</option>
+                                <option value={{item.recruitId}} *ngFor="let item of dir_newsemesterList">{{item.recruitName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" #guanbiupdate data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" (click)="createSchedule()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cUupdateScheduleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelup" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabelup">修改课表</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" name="scheduleForm" novalidate>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">课表名称</label>
+                        <div class="col-sm-9">
+                            <input type="text" required   [(ngModel)]="dir_cUsupdatecheduleName" name="scheduleName" class="form-control" placeholder="课表名称">
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: 34px;">
+                        <label class="col-xs-3 control-label" style="font-size:12px;padding-top: 0px;">课表开始时间</label>
+                        <div class="col-xs-9">
+                            <input type="text"  class="form-control"  [(ngModel)]="dir_cUupdatescheduleStartTime" name="scheduleStartTime" id="cUscheduleStartTime"  placeholder="课表开始时间">
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: 34px;">
+                        <label class="col-xs-3 control-label" style="font-size:12px;padding-top: 0px;">课表结束时间</label>
+                        <div class="col-xs-9">
+                            <input type="text"  class="form-control"  [(ngModel)]="dir_cUupdatescheduleEndTime" name="scheduleEndTime" id="cUscheduleEndTime" placeholder="课表结束时间">
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: 34px;">
+                        <label class="col-xs-3 control-label" style="font-size:12px;padding-top: 0px;" >首次排课截止时间</label>
+                        <div class="col-xs-9">
+                            <input type="text"  class="form-control"  [(ngModel)]="dir_cUupdatescheduleDeadlineTime" name="scheduleDeadlineTime" id="cUscheduleDeadlineTime" placeholder="首次排课截止时间">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" (click)="updateSchedule()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="fankui" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title fsff14" style="color: #2570D3;">
+                    <span style="font-weight: bold;">周反馈</span>
+                    <span class="fsff12" style="margin-left:10px;">< {{dir_fankuiStToshow}}-{{dir_fankuiEtToshow}} ></span>
+                </h4>
+            </div>
+            <span *ngIf="!dir_isHavefankui" class="fsff14" style="display: block;height: 200px;line-height: 170px;text-align: center;">当前周暂无反馈</span>
+            <div class="modal-body" *ngIf='dir_isHavefankui' style="padding: 0px;">
+                <div class="box box-solid" *ngFor="let item of dir_todayFeedBack" style="box-shadow: inherit;padding: 15px 15px 20px;border-bottom: 1px solid #ccc;">
+                    <div class="box-header" style="padding: 0px;">
+                        <h3 class="box-title fsff12" style="width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;padding-left: 10px;border-left: 5px solid #000;"><span class="fsff14" style="color: #000;font-weight: bold;">{{item.courseName}}</span>
+                        <span class="pull-right fsff12" style="color: #ddd;">{{item.startTime|date:'yyyy/MM/dd HH:mm'}}-{{item.endTime|date:'HH:mm'}}</span>
+                        </h3>
+                    </div>
+                    <div class="box-body" style="background: #F5F5FA;padding:10px 5px;">
+                        <span class="fsff12 feedBackTItle" *ngIf="item.teacherProblem==''?false:true">授课问题</span>
+                        <p class="feedBackCon" *ngIf="item.teacherProblem==''?false:true">{{(item.teacherProblem==undefined||item.teacherProblem=="undefined")?"":item.teacherProblem}}</p>
+                        <span class="fsff12 feedBackTItle" *ngIf="item.speakerClassroomProblem==''?false:true">主讲教室</span>
+                        <p class="feedBackCon" *ngIf="item.speakerClassroomProblem==''?false:true">{{(item.speakerClassroomProblem==undefined||item.speakerClassroomProblem=="undefined")?"":item.speakerClassroomProblem}}</p>
+                        <span class="fsff12 feedBackTItle" *ngIf="item.interactiveClassroomProblem==''?false:true">互动教室</span>
+                        <p class="feedBackCon" *ngIf="item.interactiveClassroomProblem==''?false:true">{{(item.interactiveClassroomProblem==undefined||item.interactiveClassroomProblem=="undefined")?"":item.interactiveClassroomProblem}}</p>
+                        <span class="fsff12 feedBackTItle" *ngIf="item.daoboProblem==''?false:true">导播保障</span>
+                        <p class="feedBackCon" *ngIf="item.daoboProblem==''?false:true">{{(item.daoboProblem==undefined||item.daoboProblem=="undefined")?"":item.daoboProblem}}</p>
+                        <span class="fsff12 feedBackTItle" *ngIf="item.otherProblem==''?false:true">其他问题</span>
+                        <p class="feedBackCon" *ngIf="item.otherProblem==''?false:true">{{(item.otherProblem==undefined||item.otherProblem=="undefined")?"":item.otherProblem}}</p>
+                        <span class="fsff12 feedBackTItle" *ngIf="item.feedbackDescription==''?false:true">综合评价</span>
+                        <p class="feedBackCon" *ngIf="item.feedbackDescription==''?false:true">{{(item.feedbackDescription==undefined||item.feedbackDescription=="undefined")?"":item.feedbackDescription}}</p>
+                    </div>
+                    <div class="box-footer" style="position: relative;">
+                        <p class="fsff12" style="margin-bottom: 5px;width: 100px;">{{item.userName}}</p>
+                        <p style="font-family: '微软雅黑';font-size: 12px;margin: 0px;width: 150px;">{{item.createTime|date:'yyyy-MM-dd HH:mm'}}</p>
+                        <img src={{item.userPic}} style="width: 40px;height: 40px;border-radius: 50%;float: right;position: absolute;top: 15px;right: 0px;" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding-top: 0px;border: none;">
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div> 
+<div *ngIf="dir_isHaveKebiao">
+    <section class="content-header" style="padding:0px 0px 15px;height: 40px;">
+        <div *ngIf="dir_currents" (click)="scheduleSwitch('1')" class="fsff14 cUkebiaoBtn kebiaoactive kebiaoBtn">
+            {{cUscheduleName}}
+            <i class="fa  fa-pencil-square-o pull-right" data-toggle="modal" data-target="#cUupdateScheduleModal" style="font-size: 18px;display: none;margin-top: 11px;margin-right: 20px;"></i>
+        </div>
+        <div *ngIf="dir_notStarts" (click)="scheduleSwitch('2')" class="fsff14 nSkebiaoBtn kebiaoBtn">
+            {{nSscheduleName}}
+            <i class="fa  fa-pencil-square-o pull-right" data-toggle="modal" data-target="#cUupdateScheduleModal" style="font-size: 18px;display: none;margin-top: 11px;margin-right: 20px;"></i>
+        </div>
+        <div  class="fsff14 addkebiaoBtn"><a style="cursor: pointer;" data-toggle="modal" class="fsff14" data-target="#addScheduleModal"><i class="fa fa-plus" style="padding-right: 5px;font-weight: normal;"></i>新建课表</a></div>
+    </section>
+    <section *ngIf="dir_currents && isCuKebiao" class="invoice liveConWrap" style="padding: 0px;border:0px;margin-top: 25px;">
+        <div class="box box-solid" style="border-top: none;margin-bottom: 0px;">
+            <div class="box-header" style="padding: 25px 25px 10px;clear: both;overflow: hidden;">
+                <h1 class="box-title" style="width: 250px;float: left;">
+                    <i class="fa fa-calendar"></i>
+                    <span style="font-weight: bold;">{{shijianDuan}}</span><br>
+                    <div style="height: 20px;width: 190px;"></div>
+                    <button *ngIf="isHaveoldWeek" (click)="switchWeek('0')" style="background: #F5F5FA;padding: 1px 8px;" class="btn btn-default btn-sm oldWeekShow">← {{oldWeekShow}}</button>
+                    <span class="fsff12" style="padding:0px 3px;">{{weekToshow}}</span>
+                    <button *ngIf="isHaveNewWeek" (click)="switchWeek('1')" style="background: #F5F5FA;padding: 1px 8px;" class="btn btn-default btn-sm"> {{newWeekShow}}→</button>
+                </h1>
+                <div *ngIf="cUweek<=dir_cUweekKeep && isCuKebiao" data-toggle="modal"  data-target="#fankui" style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;cursor: pointer;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;color: #2570D3;">{{runcommissionFeedbackQuantity}}</p>
+                    <p class="fsff12" style="color: #2570D3;">专员反馈</p>
+                </div>
+                <div *ngIf="cUweek<=dir_cUweekKeep && isCuKebiao" style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;color: #2570D3;">{{endLiveQuantity}}</p>
+                    <p class="fsff12" style="color: #A0A0A1;">已播出</p>
+                </div>
+                <div *ngIf="cUweek>dir_cUweekKeep || !isCuKebiao" style="height: 60px;width:120px;padding:10px 20px;float: right;background: #F5F5FA;margin-left: 10px;">
+                    <p class="fsff16" style="font-weight: bold;margin: 0px;color: #2570D3;">{{liveSureQuantity}}</p>
+                    <p class="fsff12" style="color: #A0A0A1;">已确认</p>
+                </div>
+                <div *ngIf="true" id="dir_zhuanyuanList" style="height: 36px;width: 200px;margin: 0 auto;">
+                    <div style="border-top-left-radius: 17px;border-bottom-left-radius: 17px;width: 140px;float: left;padding-left: 20px;background: #F5F5FA;border: 1px solid #d2d6de;">
+                        <select class="form-control cUzhuanyuanSelect"  style="background: #F5F5FA;color: #2570D3;border-left: 0px;">
+                            <option></option>
+                            <option value={{people.zhsId}} *ngFor="let people of commissionerList">{{people.realName}}</option>
+                        </select>
+                    </div>
+                    <span style="display: inline-block;height: 36px;line-height: 36px;width: 60px;text-align: center;border-top-right-radius: 17px;border-bottom-right-radius: 17px;background: #F5F5FA;border: 1px solid #d2d6de;border-left:none;font-weight: bold;color: #2570D3;">{{cuAllLiveNum}}</span>
+                </div>
+            </div>
+            <div class="box-body" style="padding: 10px 20px;border-radius: 0;">
+                <div class="weekCon" style="clear: both;">
+                    <div (click)='switchWeekDayShow(week1)' #week1 class="col-xs-week8" style="padding: 10px 5px;height: 100%;">
+                        <div class="weekBorder" style="border: 1px solid #efefef;height: 100%;">
+                            <h2 class="fsff12" style="margin: 0px;color: #92B7E9;padding: 10px;cursor: pointer;position: relative;">
+                                星期一<span class="weekmonDay">{{dateArray[0]}}</span><span class="pull-right weekmonDayNum">{{monZhuanYuan.assignedlivequantity}}</span>
+                            </h2>
+                            <div style="padding: 10px;">
+                                <p class="fsff12" style="color: #ccc;">上午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week1)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of monZhuanYuan.amtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">            
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">下午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week1)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of monZhuanYuan.pmtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">晚上</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week1)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of monZhuanYuan.nighttimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                            </div>              
+                        </div>
+                    </div>
+                    <div (click)='switchWeekDayShow(week2)' #week2 class="col-xs-week8" style="padding: 10px 5px;height: 100%;">
+                        <div class="weekBorder" style="border: 1px solid #efefef;height: 100%;">
+                            <h2 class="fsff12" style="margin: 0px;color: #92B7E9;padding: 10px;cursor: pointer;position: relative;">
+                                星期二<span class="weekmonDay">{{dateArray[1]}}</span><span class="pull-right weekmonDayNum">{{tueZhuanYuan.assignedlivequantity}}</span>
+                            </h2>
+                            <div style="padding: 10px;">
+                                <p class="fsff12" style="color: #ccc;">上午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week2)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of tueZhuanYuan.amtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">下午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week2)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of tueZhuanYuan.pmtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">晚上</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week2)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of tueZhuanYuan.nighttimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">             
+                                    </p>         
+                                </div>
+                            </div>               
+                        </div>
+                    </div>
+                    <div (click)='switchWeekDayShow(week3)' #week3 class="col-xs-week8" style="padding: 10px 5px;height: 100%;">
+                        <div class="weekBorder" style="border: 1px solid #efefef;height: 100%;">
+                            <h2  class="fsff12" style="margin: 0px;padding: 10px;color: #92B7E9;cursor: pointer;position: relative;">
+                                星期三<span class="weekmonDay">{{dateArray[2]}}</span><span class="pull-right weekmonDayNum">{{wedZhuanYuan.assignedlivequantity}}</span>
+                            </h2>
+                            <div style="padding: 10px;">
+                                <p class="fsff12" style="color: #ccc;">上午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week3)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of wedZhuanYuan.amtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">             
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">下午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week3)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of wedZhuanYuan.pmtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">            
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">晚上</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week3)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of wedZhuanYuan.nighttimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                            </div>               
+                        </div>
+                    </div>
+                    <div (click)='switchWeekDayShow(week4)' #week4 class="col-xs-week8" style="padding: 10px 5px;height: 100%;">
+                        <div class="weekBorder" style="border: 1px solid #efefef;height: 100%;">
+                            <h2 class="fsff12" style="margin: 0px;color: #92B7E9;padding: 10px;cursor: pointer;position: relative;">
+                                星期四<span class="weekmonDay">{{dateArray[3]}}</span><span class="pull-right weekmonDayNum">{{thuZhuanYuan.assignedlivequantity}}</span>
+                            </h2>
+                            <div style="padding: 10px;">
+                                <p class="fsff12" style="color: #ccc;">上午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week4)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of thuZhuanYuan.amtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">下午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week4)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of thuZhuanYuan.pmtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">             
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">晚上</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week4)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of thuZhuanYuan.nighttimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                            </div>               
+                        </div>
+                    </div>
+                    <div (click)='switchWeekDayShow(week5)' #week5 class="col-xs-week8" style="padding: 10px 5px;height: 100%;">
+                        <div class="weekBorder" style="border: 1px solid #efefef;height: 100%;">
+                            <h2 class="fsff12" style="margin: 0px;color: #92B7E9;padding: 10px;cursor: pointer;position: relative;">
+                                星期五<span class="weekmonDay">{{dateArray[4]}}</span><span class="pull-right weekmonDayNum">{{friZhuanYuan.assignedlivequantity}}</span>
+                            </h2>
+                            <div style="padding: 10px;">
+                                <p class="fsff12" style="color: #ccc;">上午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week5)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of friZhuanYuan.amtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">下午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week5)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of friZhuanYuan.pmtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">晚上</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week5)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of friZhuanYuan.nighttimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">             
+                                    </p>         
+                                </div>
+                            </div>               
+                        </div>
+                    </div>
+                    <div (click)='switchWeekDayShow(week6)' #week6 class="col-xs-week8" style="padding: 10px 5px;height: 100%;">
+                        <div class="weekBorder" style="border: 1px solid #efefef;height: 100%;">
+                            <h2 class="fsff12" style="margin: 0px;color: #92B7E9;padding: 10px;cursor: pointer;position: relative;">
+                                星期六<span class="weekmonDay">{{dateArray[5]}}</span><span class="pull-right weekmonDayNum">{{satZhuanYuan.assignedlivequantity}}</span>
+                            </h2>
+                            <div style="padding: 10px;">
+                                <p class="fsff12" style="color: #ccc;">上午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week6)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of satZhuanYuan.amtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">             
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">下午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week6)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of satZhuanYuan.pmtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">             
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">晚上</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week6)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of satZhuanYuan.nighttimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                            </div>               
+                        </div>
+                    </div>
+                    <div (click)='switchWeekDayShow(week7)' #week7 class="col-xs-week8" style="padding: 10px 5px;height: 100%;">
+                        <div class="weekBorder" style="border: 1px solid #efefef;height: 100%;">
+                            <h2 class="fsff12" style="margin: 0px;color: #92B7E9;padding: 10px;cursor: pointer;position: relative;">
+                                星期日<span class="weekmonDay">{{dateArray[6]}}</span><span class="pull-right weekmonDayNum">{{sunZhuanYuan.assignedlivequantity}}</span>
+                            </h2>
+                            <div style="padding: 10px;">
+                                <p class="fsff12" style="color: #ccc;">上午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week7)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of sunZhuanYuan.amtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">下午</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week7)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of sunZhuanYuan.pmtimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                                <p class="fsff12" style="color: #ccc;">晚上</p>
+                                <div style="min-height: 30px;">
+                                    <p title={{live.title}} (click)="getDetailInfo(live.liveId,live.livecourseId,week7)"  class="weekLive" [class.weekLiveSure]="live.infoConfirm==2 && live.strategyConfirm==2" *ngFor="let live of sunZhuanYuan.nighttimeperiods">
+                                        <span style="font-weight: bold;color: #333;">{{live.courseName}}</span>
+                                        <span>{{live.liveName}}</span>
+                                        <img *ngIf="live.liveStatus==2" src="../../../assets/gua_liveIconCur.png" style="position: absolute;top: 50%;margin-top: -8px;right: 2px;" alt="">              
+                                    </p>         
+                                </div>
+                            </div>               
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </section>
+    <section class="invoice" style="padding: 0px;border:0px;">
+        <div class="row" style="background: #ECF0F5;margin: 0px;">
+            <div class="col-xs-9" style="padding: 0px;background: #ECF0F5;">
+                <div class="box-solid">
+                    <div class="box-header" style="padding: 10px 0px;">
+                        <div class="col-xs-6 tongbuTitleCon">
+                            <div style="height: 80px;padding-left: 25px;padding-right: 10px;box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
+                                <a class="tongbuBtn" (click)="sync()" href="javascript:;">
+                                    <img src="../../../assets/dir_tongbuBtn.png" style="margin-top: -3px;" alt="">
+                                    同步课程
+                                </a>
+                                <div *ngIf="!dir_CsyncOnOff" style="width: 120px;height: 40px;float: right;margin-top: 20px;text-align: center;margin-right: 20px;">
+                                    <p class="fsff12" style="margin-bottom: 0px;font-weight: bold;margin-top: 3px;">上次同步时间</p>
+                                    <p style="color: #8B97B8;margin-bottom: 0px;">{{dir_syncTime|date:'yyyy/MM/dd HH:mm'}}</p>
+                                </div>
+                                <div *ngIf="dir_CsyncOnOff" style="width: 120px;height: 40px;float: right;margin-top: 20px;text-align: center;margin-right: 20px;line-height: 40px;">
+                                    <p class="fsff12" style="margin-bottom: 0px;font-weight: bold;margin-top: 3px;color: #33CC66;">本次同步{{dir_CsyncResult}}门课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 fabuTitleCon">
+                            <div (click)="gotoMeetCourseList()" style="height: 80px;line-height: 80px;padding: 0px 20px;padding-left: 25px;box-shadow: 0 1px 1px rgba(0,0,0,0.1);cursor: pointer;">
+                                <span class="fsff12" style="color: #8B97B8;">已发布见面课</span>
+                                <span class="fsff16" style="font-weight: bold;color: #2570D3;float: right;margin-right: 30px;">{{dir_releasedlivequantity}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body" style="padding: 10px 0px;background: #fff;margin-bottom: 10px;border-radius: 0px;">
+                        <ul class="nav nav-tabs" role="tablist" style="padding: 0px 20px;">
+                            <li role="presentation" class="active">
+                                <a class="tab-a" (click)="getUnfenpeiMeetCourseList()" href="#unFenpeiTab" aria-controls="unFenpeiTab" role="tab" data-toggle="tab">未分配</a>
+                            </li>
+                            <li role="presentation">
+                                <a class="tab-a" (click)="getFenpeiMeetCourseList()" href="#yiFenpeiTab" aria-controls="yiFenpeiTab" role="tab" data-toggle="tab">已分配</a>
+                            </li>
+                            <li role="presentation">
+                                <a class="tab-a" (click)="getFabuMeetCourseList()" href="#yiFanbuTab" aria-controls="yiFanbuTab" role="tab" data-toggle="tab">已发布</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content table-responsive" style="border: none;padding: 0px 20px;">
+                            <div role="tabpanel" class="tab-pane active table-responsive" id="unFenpeiTab">
+                                <table id="unFenpeiTable" class="table table-hover display" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding-top: 0px;">课程名称</th>
+                                            <th style="padding-top: 0px;">开课学校</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane table-responsive" id="yiFenpeiTab">
+                                <table id="yiFenpeiTable" class="table table-hover display" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding-top: 0px;"><input type="checkbox" style="cursor:pointer;" (click)="allSelected()" name="checkBoxAllfabuCourse" style="margin-right: 3px;" class="checkBoxAllfabuCourse">全选</th>
+                                            <th style="padding-top: 0px;">课程专员</th>
+                                            <th style="padding-top: 0px;">
+                                                课程状态
+                                                <select class="form-control" id="courseStatus" style="padding: 0px;font-size: 12px;height: 24px;line-height: 24px;"  (change)="staChange()">
+                                                    <option value="">全部</option>
+                                                    <option value="1">待排</option>
+                                                    <option value="2">进行中</option>
+                                                    <option value="3">待发布</option>
+                                                </select>
+                                            </th>
+                                            <th style="padding-top: 0px;">课程名称</th>
+                                            <th style="padding-top: 0px;">开课学校</th>
+                                            <th style="padding-top: 0px;">主讲点学校</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane table-responsive" id="yiFanbuTab">
+                                <table id="yiFabuTable" class="table table-hover display" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding-top: 0px;">运行专员</th>
+                                            <th style="padding-top: 0px;">见面课数</th>
+                                            <th style="padding-top: 0px;">课程名称</th>
+                                            <th style="padding-top: 0px;">开课学校</th>
+                                            <th style="padding-top: 0px;">主讲学校</th>
+                                            <th style="padding-top: 0px;"> </th> 
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3" style="padding-right: 0px;padding-top: 10px;padding-left: 10px;">
+                <div class="box box-solid" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);margin-bottom: 0px;border-radius: 0px;">
+                    <div class="box-header">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h1 class="box-title fsff12" style="font-weight: bold;">排课进度</h1>
+                        <p class="pull-right" style="margin:0px;">
+                            <span style="font-weight: bold;">{{dir_paikeOK}}/</span><span style="font-weight: bold;">{{dir_paikeALL}}</span>
+                        </p>
+                    </div>
+                    <div class="box-body nano" style="height: 640px;overflow: hidden;background: #fff;">
+                        <div class="nano-content padding10" style="margin-bottom: 10px;">
+                            <div style="border: 1px solid #F5F5FA;padding: 10px;padding-top: 5px;margin-bottom: 10px;" *ngFor="let paikeCount of dir_paikeCountInfo">    
+                                <img src={{paikeCount.userPic}} alt="img" title="头像" style="width: 40px;height: 40px;border-radius: 50%;" />
+                                <p style="clear: both;overflow: hidden;margin: 5px 0px;">
+                                    <span style="font-family: '微软雅黑';font-size: 12px;float: left;color: #8B97B8;">{{paikeCount.name}}</span>
+                                    <span style="float: right;font-family: '微软雅黑';font-size: 12px;float: right;font-weight: bold;">{{paikeCount.paikecompletedquantity}}/{{paikeCount.allocationcoursequantity}}</span>
+                                </p>  
+                                <div style="position: relative;width: 100%;">
+                                    <div class="progress" style="height: 8px;margin-bottom: 0px;border-radius: 4px;">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" [style.width.%]="paikeCount.progressNum" style="background: #33CC66;">      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                               
+                    </div>               
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="cUfenpei" tabindex="-1" role="dialog" aria-labelledby="myModalLabelf" aria-hidden="true">
+        <div class="modal-dialog" style="width: 800px;">
+            <div class="modal-content">
+                <div class="modal-header" style="position: relative;">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabelf" style="font-weight: bold;">课程分配</h4>
+                    <p class="fsff14" style="position: absolute;text-align: center;height: 20px;line-height: 20px;width: 100%;left: 0px;top: 24px;">当前剩余 <span style="color: #2570D3;">{{dir_cUunFenpeicourseListNum}}</span> 门未分配</p>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-5" >
+                            <div class="nano" style="height: 350px;overflow: hidden;background: #ECF0F5;border: 1px solid #ccc;border-radius: 3px;">
+                                <div class="input-group cUfenpeiSearch" style="width: 240px;background: #2570D3;border-bottom-left-radius: 2px;border-bottom-right-radius: 2px;height: 32px;padding: 6px 10px;position: absolute;left: 30px;top: 0px;z-index: 100;">
+                                        <input name="cUfenpeiCourseSva" [(ngModel)]="dir_cUfenpeiCourseSva" (keyup.enter)="getFenpeiCourse('1')" type="text" class="form-control fsff12" placeholder="请输入学校或课程名" style="background: #fff;width: 220px;height: 20px;padding-left: 25px;background:url(../../../assets/fenpeiSearch.png) no-repeat #fff 6px 3px;border: none;">
+                                </div>
+                                <div class="nano-content cUfenPeiCourseCon" style="margin-top: 30px;">
+                                    <div class="checkbox" *ngFor="let item of dir_cUunFenpeicourseListToshow" style="margin: 10px 10px;background: #F9FAFC;padding: 5px 5px;border-radius: 2px;">
+                                        <label for="cUcourse{{item.id}}">
+                                            <input type="checkbox" title={{item.courseName}} class="checkBoxFenpeiCourse" id="cUcourse{{item.id}}" value={{item.id}}>
+                                            {{item.courseName}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>                                
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="btn btn-default btn-block fsff14" (click)="fenpeiTopeople('1')" style="background: #2570D3;border: none;color: #fff;
+                                padding: 10px 12px;margin-top: 129px;margin-bottom: 10px;">分 配<i class="fa fa-arrow-right" style="margin-left: 5px;"></i></button>
+                            <button class="btn btn-default btn-block fsff14" (click)="tuihuiTocourse('1')" style="background: #F14E4E;border: none;color: #fff;
+                                padding: 10px 12px;"><i class="fa fa-arrow-left" style="margin-right: 5px;"></i>退 回</button>
+                        </div>
+                        <div class="col-xs-5">
+                            <div class="nano" style="height: 350px;overflow: hidden;background: #ECF0F5;border: 1px solid #ccc;border-radius: 3px;">
+                                <div class="nano-content treeMenuCon">
+                                    <ul class="fixSidebar-menu"  style="padding-top: 10px;">
+                                        <li class="treeview" *ngFor="let item of dir_cUfenpeizhuanyuanListToshow"  style="margin: 0px 10px;border-bottom: 10px solid #ECF0F5">
+                                            <a class="fsff14" style="background: #F9FAFC;" (click)="selectZhuanyuanId(item.userId,'1')" href="javascript:;">
+                                                <img src="{{item.userPic}}" alt="" style="width: 30px;height: 30px;float: left;border-radius: 50%;margin-top: -5px;margin-right: 5px;">
+                                                <span title={{item.userName}} style="color: #000;width: 60px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;float: left;">{{item.userName}}</span>
+                                                <span style="color: #999;">已分配</span>
+                                                <span style="color: #2570D3;margin: 0px 5px;">{{item.courseNum}}</span>
+                                                <span style="color: #999;">门</span>
+                                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style="color: #2570D3;font-size: 18px;"></i></span>
+                                            </a>
+                                            <ul class="treeview-menu" style="background: #ECF0F5;">
+                                                <li *ngFor="let course of item.courses">
+                                                    <div class="checkbox divTuihuiCourse" style="margin: 10px 10px;background: #F9FAFC;padding: 5px 5px;border-radius: 2px;height: 30px;">
+                                                        <label for="yiFenpei{{course.courseId}}" class="labelTuihuiCourse" style="    overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                                            <input type="checkbox" title={{course.courseName}} class="checkBoxTuihuiCourse" value={{course.courseId}} id="yiFenpei{{course.courseId}}">
+                                                            {{course.courseName}}
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                          
+                </div>
+                <div class="modal-footer" style="width: 208px;margin-left: 294px;">
+                    <button type="button" class="btn btn-default" style="background: #9CC0EA;padding: 6px 26px;border: 0px;" data-dismiss="modal">取消</button>
+                    <button type="button" *ngIf="dir_fenPeiing" (click)="assignCourseToCommissioner('1')" class="btn btn-primary" style="margin-left: 10px;border: 0px;">确认分配</button>
+                    <button type="button" *ngIf="!dir_fenPeiing" class="btn btn-primary disabled" style="margin-left: 10px;border: 0px;padding: 6px 19px;background: #9CC0EA;">分配中</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="changeInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabelf" aria-hidden="true">
+        <div class="modal-dialog" style="width: 1000px;">
+            <div *ngIf="isHaveChange" class="modal-content">
+                <div class="modal-header" style="border-bottom: 0px;padding-bottom: 0px;">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabelf" style="font-weight: bold;color: #2570D3;font-size: 16px;">{{requireChangeInfo.courseName}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="border: 1px solid #ddd;border-bottom: 0px;border-right: 0px;margin: 0px;">
+                        <div class="col-xs-week7 requireChangeTitle">见面课名</div>
+                        <div class="col-xs-week7 requireChangeTitle">主讲教室</div>
+                        <div class="col-xs-week7 requireChangeTitle"> 变更后教室</div>
+                        <div class="col-xs-week7 requireChangeTitle">上课时间</div>
+                        <div class="col-xs-week7 requireChangeTitle">变更后时间</div>
+                        <div class="col-xs-week7 requireChangeTitle">是否有效</div>
+                        <div class="col-xs-week7 requireChangeTitle">变更后是否有效</div>
+                    </div>
+                    <div class="row" *ngFor="let live of requireChangeDetail" style="margin: 0px;border-left: 1px solid #ddd;">
+                        <div class="col-xs-week7 requireChangeTitleH">
+                            <p title={{live.liveName}} style="margin: 0px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;line-height: 72px;">{{live.liveName}}</p>
+                        </div>
+                        <div class="col-xs-week7 requireChangeTitleH">
+                            <p title={{live.beforeClassroomAddress}} style="margin: 0px;line-height: 36px;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{live.beforeClassroomAddress}}</p>
+                        </div>
+                        <div class="col-xs-week7 requireChangeTitleH" [class.haveChange]="live.beforeClassroomAddress!=live.afterClassroomAddress">
+                            <p title={{live.afterClassroomAddress}} style="margin: 0px;line-height: 36px;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{live.afterClassroomAddress}}</p>
+                        </div>
+                        <div class="col-xs-week7 requireChangeTitleH">
+                            <p style="margin: 0px;line-height: 36px;">{{live.beforeStartTime|date:'yyyy-MM-dd'}}</p>
+                            <p style="margin: 0px;">{{live.beforeStartTime|date:'HH:mm'}}-{{live.beforeEndTime|date:'HH:mm'}}</p>
+                        </div>
+                        <div class="col-xs-week7 requireChangeTitleH" [class.haveChange]="live.beforeStartTime!=live.afterStartTime || live.beforeEndTime!=live.afterEndTime">
+                            <p style="margin: 0px;line-height: 36px;">{{live.afterStartTime|date:'yyyy-MM-dd'}}</p>
+                            <p style="margin: 0px;">{{live.afterStartTime|date:'HH:mm'}}-{{live.afterEndTime|date:'HH:mm'}}</p>
+                        </div>
+                        <div class="col-xs-week7 requireChangeTitleH">
+                            <p style="margin: 0px;line-height: 72px;">{{liveKaiguan[live.beforeAvailable]}}</p>
+                        </div>
+                        <div class="col-xs-week7 requireChangeTitleH" [class.haveChange]="live.beforeAvailable!=live.afterAvailable">
+                            <p style="margin: 0px;line-height: 72px;">{{liveKaiguan[live.afterAvailable]}}</p>
+                        </div>
+                    </div>                          
+                </div>
+                <div class="modal-footer" style="width: 212px;margin-left: 386px;border-top: 0px;">
+                    <button type="button" (click)="requirementtChangeHandler('2')" class="btn btn-default" style="background: #fff;padding: 6px 20px;border: 0px;border: 1px solid #ddd;border-radius: 0px;" data-dismiss="modal">不同意</button>
+                    <button type="button" (click)="requirementtChangeHandler('1')" class="btn btn-primary" style="margin-left: 10px;border: 0px;border-radius: 0px;padding: 6px 28px;" data-dismiss="modal">同意</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section *ngIf="!dir_isHaveKebiao" class="invoice fsff16" style="padding: 0px;border:0px;height: 500px;text-align: center;line-height: 300px;">
+        当前课表暂无数据
+    </section>
+</div>
+
+<div *ngIf="dir_isgetLiveDetailInfoTrue" class="modal fade" id="detailInfoPage" tabindex="-1" role="dialog" aria-labelledby="myModalLabelInfo">
+    <div class="modal-dialog" role="document" style="width: 640px;">
+        <div class="modal-content">
+            <div class="modal-header" style="height: 80px;padding:16px 30px;border-bottom: 1px solid #ddd;">
+                <img src="../../../assets/courseInfoPic.png" style="float: left;margin-right: 8px;" alt="">
+                <p style="font-size: 18px;font-family: 微软雅黑;font-weight: bold;margin-bottom: 0px;">{{dir_liveDetailBaseInfo.courseName}}</p>
+                <p class="fsff14" style="float: left;margin-top: 5px;">主讲人<span style="margin-left: 10px;">{{dir_liveDetailBaseInfo.teacherName}}</span></p>
+                <a class="jumpToliveBtn" title="直播频道" href={{dir_liveUrl}} (click)="jumpTolive()" target="_blank" style="display: block;float: right;margin-top: -12px;width: 24px;height: 24px;"></a>
+                <a class="jumpToheightTowerBtn" title="高塔" href={{dir_hTowerUrl}} target="_blank" style="display: block;float: right;margin: -12px 40px 0px;width: 24px;height: 24px;"></a>
+                <a class="jumpToyuyinBtn" title="语音频道" href={{dir_yuyinUrl}} (click)="jumpToyuyin()" target="_blank" style="display: block;float: right;margin-top: -12px;width: 24px;height: 24px;"></a>
+            </div>
+            <div class="modal-body" style="padding:30px;">
+                <p class="fsff16" title={{dir_liveDetailBaseInfo.liveName}} style="color: #2570D3;margin-bottom: 5px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+                    {{dir_liveDetailBaseInfo.liveName}}
+                    <img src={{dir_liveDetailInfo.liveTypeImg}} alt="" style="margin-left: 5px;margin-top: -2px;"> 
+                </p>
+                <img src={{dir_liveDetailBaseInfo.livePic}} style="width: 320px;height: 180px;" alt="">
+                <div style="width: 90px;height: 180px;float: right;margin-right: 70px;">
+                    <p class="fsff12" style="color: #999;text-align: center;margin-top: 22px;">上课时间</p>
+                    <p class="fsff14" style="text-align: center;">{{dir_liveDetailBaseInfo.startTime|date:'HH:mm'}}-{{dir_liveDetailBaseInfo.endTime|date:'HH:mm'}}</p>
+                    <p class="fsff12" style="color: #999;text-align: center;margin-top: 30px;">签到方式</p>
+                    <p class="fsff14" style="text-align: center;">现场签到</p>
+                </div>
+                <div style="clear: both;overflow: hidden;margin-bottom:40px;">
+                    <div style="width: 280px;height: 60px;border: 1px solid #ddd;margin-top: 40px;padding-left: 86px;position: relative;float: left;">
+                        <img src={{dir_liveDetailZhuanyuanInfo.zhuanYuanUserPic}} style="width: 40px;height: 40px;border-radius: 50%;position: absolute;left: 30px;top: 10px;" alt="">
+                        <p class="fsff14" style="color: #000;margin-top: 10px;margin-bottom: 4px;">
+                            <span>{{dir_liveDetailZhuanyuanInfo.zhuanYuanName}}</span>
+                            <img src="../../../assets/zhuanyuan.png" alt="" style="margin-left: 10px;margin-top: -2px;"></p>
+                        <p class="fsff14" style="color: #999;">{{dir_liveDetailZhuanyuanInfo.zhuanYuanPhone}}</p>
+                    </div>
+                    <div style="width: 280px;height: 60px;border: 1px solid #ddd;margin-top: 40px;padding-left: 86px;position: relative;float: right;">
+                        <img src={{dir_liveDetailZhuanYuanInfo.zhiBanUserPic}} style="width: 40px;height: 40px;border-radius: 50%;position: absolute;left: 30px;top: 10px;" alt="">
+                        <p class="fsff14" style="color: #000;margin-top: 10px;margin-bottom: 4px;">
+                            <span>{{dir_liveDetailZhuanYuanInfo.zhiBanName}}</span>
+                            <img src="../../../assets/zhibanren.png" alt="" style="margin-left: 10px;margin-top: -2px;"></p>
+                        <p class="fsff14" style="color: #999;">{{dir_liveDetailZhuanYuanInfo.zhiBanPhone}}</p>
+                    </div>
+                </div>
+                <div *ngFor="let room of dir_liveDetailInfozhuRoom" style="height: 60px;padding:10px 0;width: 100%;overflow: hidden;clear: both;background: #F5F5FA;margin-bottom: 5px;">
+                    <p class="fsff14" style="width: 288px;padding-left: 48px;background: url(../../../assets/zhujiangRoomIcon.png) no-repeat 17px 12px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;height: 40px;float: left;line-height: 40px;margin-bottom:0;">
+                        {{room.schoolName}}{{room.classroomName}}
+                    </p>
+                    <p class="fsff14" style="height: 40px;line-height: 40px;float: right;width: 280px;margin-right: 10px;padding-left: 10px;margin-bottom: 0px;">
+                        <img src="../../../assets/daobo.png" alt="">
+                        <span class="fsff14" style="float:right;width: 91px;text-align: center;">{{room.daoboPhone}}</span>
+                        <span class="fsff14" style="margin-left: 10px;width: 91px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: right;">{{room.daoboName}}</span>
+                    </p>
+                </div>
+                <div *ngFor="let room of dir_liveDetailInfohuRoom" style="height: 80px;width: 100%;overflow: hidden;clear: both;background: #F5F5FA;margin-bottom: 5px;">
+                    <p class="fsff14" style="width: 288px;padding-left: 48px;background: url(../../../assets/hudongRoomIcon.png) no-repeat 10px 30px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;height: 80px;float: left;line-height: 80px;">
+                        {{room.schoolName}}{{room.classroomName}}
+                    </p>
+                    <p class="fsff14" style="height: 40px;line-height: 40px;float: right;width: 280px;margin-right: 10px;padding-left: 10px;margin-bottom: 0px;">
+                        <img src="../../../assets/daobo.png" alt="">
+                        <span class="fsff14" style="float:right;width: 91px;text-align: center;">{{room.daoboPhone}}</span>
+                        <span class="fsff14" style="margin-left: 10px;width: 91px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: right;">{{room.daoboName}}</span>
+                    </p>
+                    <p class="fsff14" style="height: 40px;line-height: 40px;float: right;width: 280px;margin-right: 10px;padding-left: 10px;margin-bottom: 0px;">
+                        <img src="../../../assets/zhujiao.png" alt="">
+                        <span class="fsff14" style="float:right;width: 91px;text-align: center;">{{room.roomTeacherPhone}}</span>
+                        <span class="fsff14" style="margin-left: 10px;width: 91px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;float: right;">{{room.roomTeacherName}}</span>
+                    </p>
+                </div>
+                <p *ngIf="dir_isHaveHudong" class="fsff14" style="margin-top: 40px;font-weight: bold;">见面课运行策略</p>
+                <div *ngIf="dir_isHaveHudong" style="background: #F5F5FA;padding: 10px;">
+                    <p class="fsff14" style="width: 100%;padding: 0px;">
+                        <span class="fsff14" style="color: #2570D3;">见面课时长</span>
+                        <span class="fsff14" style="margin-left: 20px;">{{timeToshow}} 分钟</span>
+                    </p>
+                    <p *ngIf="dir_liveDetailInfotype1" class="fsff14" style="color: #333;width: 100%;">
+                        <span class="fsff14" style="color: #2570D3;">主题授课型</span><br>
+                        <span class="fsff14" style="color: #333;">教师主讲时间 {{dir_liveDetailCelueInfo.teachTime}} 分钟</span>
+                        <span class="fsff14" style="color: #333;margin-left: 50px;">教室互动时间 {{dir_liveDetailCelueInfo.interactiveTime}} 分钟</span>
+                        <span class="fsff14" style="color: #333;margin-left: 50px;">在线互动答疑时间 {{dir_liveDetailCelueInfo.answerTime}} 分钟</span>
+                    </p>
+                    <p *ngIf="dir_liveDetailInfotype2" class="fsff14" style="color: #333;width: 100%;">
+                        <span class="fsff14" style="color: #2570D3;">嘉宾访谈型</span><br>
+                        <span class="fsff14" style="color: #333;">嘉宾数 {{dir_liveDetailCelueInfo.personNum}} 人</span><br>
+                        <span class="fsff14" style="color: #333;">教师主讲时间 {{dir_liveDetailCelueInfo.teachTime}} 分钟</span>
+                        <span class="fsff14" style="color: #333;margin-left: 50px;">教室互动时间 {{dir_liveDetailCelueInfo.interactiveTime}} 分钟</span>
+                        <span class="fsff14" style="color: #333;margin-left: 50px;">在线互动答疑时间 {{dir_liveDetailCelueInfo.answerTime}} 分钟</span>
+                    </p>
+                    <p *ngIf="dir_liveDetailInfotype3" class="fsff14" style="color: #333;width: 100%;">
+                        <span class="fsff14" style="color: #2570D3;">学生汇报型</span><br>
+                        <span class="fsff14" style="color: #333;">学生汇报数 {{dir_liveDetailCelueInfo.personNum}} 人</span><br>
+                        <span class="fsff14" style="color: #333;">教师主讲时间 {{dir_liveDetailCelueInfo.teachTime}} 分钟</span>
+                        <span class="fsff14" style="color: #333;margin-left: 50px;">学生汇报时间 {{dir_liveDetailCelueInfo.interactiveTime}} 分钟</span>
+                        <span class="fsff14" style="color: #333;margin-left: 50px;">教师点评时间 {{dir_liveDetailCelueInfo.answerTime}} 分钟</span>
+                    </p>
+                    <p class="fsff14" style="color: #333;width: 100%;margin-bottom: 0px;">
+                        <span class="fsff14" style="color: #2570D3;">其他说明</span><br>
+                        <span style="color: #333;word-break: break-all;">{{dir_liveDetailCelueInfo.description}}</span>
+                    </p>
+                </div>
+                <div *ngIf="dir_isHavehuSchool" class="fsff14" style="color: #333;width: 100%;background: #F5F5FA;padding: 10px;padding-top:0px;">
+                    <span class="fsff14" style="color: #2570D3;">互动学校</span><br>
+                    <p *ngFor="let room of dir_liveDetailInfohuRoom;let sort=index" style="color: #333;word-break: break-all;margin-bottom:0px;">
+                        {{sort+1}}，<span style="display:inline-block;width:200px;">{{room.schoolName}}</span>
+                        <span style="margin-right:10px;display:inline-block;width:170px;">{{dir_isHavePptArr[room.isHavePpt]}}</span>
+                        {{room.timeLong}}分钟
+                    </p>
+                </div>     
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!dir_isHaveKebiao" class="noKebiao" style="height: 200px;line-height: 320px;font-size: 20px;font-family: 微软雅黑;text-align: center;z-index: 1000;position: relative;background: #ecf0f5;">
+    当前暂无课表!
+</div>

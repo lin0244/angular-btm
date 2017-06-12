@@ -1,0 +1,118 @@
+<div class="wrapper">
+  <header class="main-header">
+    <a href="javascript:;" class="logo">
+      <span class="logo-mini"><b>MC</b></span>
+      <span class="logo-lg"><b>MeetingCourse</b></span>
+    </a>
+    <nav class="navbar navbar-static-top">
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">     
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src={{main_userPic}} class="user-image" alt="User Image">
+              <span class="hidden-xs">{{main_realname}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="user-header">
+                <img src={{main_userPic}} class="img-circle" alt="User Image" style="height: 75px;width: 75px;">
+                <p style="font-size: 14px;font-family: '微软雅黑';">
+                    <span style="display: inline-block;width: 258px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;font-size: 12px;font-family: '微软雅黑';">{{main_realname}} - {{main_roleArr[main_role]}}</span>
+                </p>
+                <button (click)="logOut()" class="btn btn-default btn-sm">退 出</button>
+              </li>
+            </ul>
+          </li>        
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <aside class="main-sidebar">  
+    <section class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="active treeview" *ngIf="!main_role0">
+          <a href="javascript:;">
+            <i class="fa fa-dashboard"></i> <span>首页</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li *ngIf="main_role1">
+              <a routerLink="director" routerLinkActive="active"><i class="fa fa-circle-o"></i>运行主管</a>
+            </li>
+            <li *ngIf="main_role2">
+              <a routerLink="commissioner" routerLinkActive="active"><i class="fa fa-circle-o"></i>专员</a>
+            </li>
+            <li *ngIf="main_role3">
+              <a routerLink="guarantee" routerLinkActive="active"><i class="fa fa-circle-o"></i>保障主管</a>
+            </li>
+            <li *ngIf="main_role4">
+              <a routerLink="watch" routerLinkActive="active"><i class="fa fa-circle-o"></i>值班人</a>
+            </li>
+          </ul>
+        </li>
+        <li class="treeview" *ngIf="main_role0" [class.active]="main_role0">
+          <a href="javascript:;">
+            <i class="fa fa-user"></i><span>用户中心</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a routerLink="userCenter" routerLinkActive="active"><i class="fa fa-circle-o"></i>人员管理</a></li>
+          </ul>
+        </li>
+        <li class="treeview courseLi">
+          <a href="javascript:;">
+            <i class="fa fa-list-ul"></i><span>课表</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a [routerLink]="['courseList', 'scheduleId'+'-'+'status']" routerLinkActive="active"><i class="fa fa-circle-o"></i>课程列表</a></li>
+            <li><a [routerLink]="['meetCourseList', 'scheduleId'+'-'+'status']" routerLinkActive="active"><i class="fa fa-circle-o"></i>见面课列表</a></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+  </aside>
+  <div class="content-wrapper">
+    <router-outlet>
+      <div id="main-loading">
+        <div id="main-loading-center">
+            <div id="main-loading-center-absolute">
+            </div>
+        </div>
+    </div>
+    </router-outlet>
+  </div>
+  <div class="control-sidebar-bg"></div>
+</div>
+<div class="modal fade" style="z-index: 2000;" id="alertWrap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="width: 500px;">
+    <div class="modal-content" style="padding-top: 20px;background: #00c0ef;">
+      <div class="modal-body" style="color: #fff;padding-left: 46px;text-align: left;">
+          <i class="icon fa fa-warning" style="color: #fff;position: absolute;left: 18px;top: 18px;"></i>
+          <span id="alertTip"></span>
+      </div>
+      <div class="modal-footer" style="padding-top: 0px;border: none;">
+        <button data-dismiss="modal" type="button" style="padding: 4px 12px;" class="btn btn-default" >关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" style="z-index: 2000;" id="alertSuccessWrap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="width: 150px;">
+    <div class="modal-content" style="background: #33CC66;">
+      <div class="modal-body" style="color: #fff;">
+          <i class="icon fa fa-check-circle" style="color: #fff;margin-right: 15px;"></i>
+          <span id="alertSuccessTip"></span>
+      </div>
+    </div>
+  </div>
+</div>

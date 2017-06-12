@@ -1,0 +1,17 @@
+{
+    "errorCode":0,
+    "errorMsg":"",
+    "result":{
+        "assignedquantity":127,
+        "lastestSyncTime":1496886496000,
+        "paikecompletedquantity":0,
+        "recruitId":"7",
+        "releasedCoursequantity":26,
+        "releasedlivequantity":68,
+        "safeLeaderConfirmedCoursequantity":0,
+        "scheduleId":85,
+        "scheduleName":"2017春夏学期课表（运行中）",
+        "unassignedquantity":522,
+        "update":1496886496000},
+        "successful":true
+}

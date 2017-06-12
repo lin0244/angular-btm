@@ -1,0 +1,11 @@
+//用户登录返回数据
+{"result":
+        {
+            "realName":"",
+            "role":"",
+            "userPic":"../assets/people.png"
+        },
+        "errorCode":0,
+        "errorMsg":"",
+        "successful":true
+}

@@ -1,0 +1,255 @@
+<section class="content-header">
+    <h1>用户管理</h1>
+</section>
+<section class="invoice">
+    <div class="row">
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" (click)="addClear()" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">新增用户</h4>
+                    </div>
+                    <div class="modal-body" style="padding-bottom: 0px;">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <form class="form-horizontal" role="form">
+                                  <div class="form-group">
+                                    <label for="userId" class="col-sm-4 control-label">智慧树用户ID</label>
+                                    <div class="col-sm-8">
+                                      <input type="text" [(ngModel)]="use_addzhsId" name="addzhsId" class="form-control" placeholder="智慧树用户ID" disabled>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="username" class="col-sm-4 control-label">用户名</label>
+                                    <div class="col-sm-8">
+                                      <input type="text" [(ngModel)]="use_adduserName" name="adduserName" class="form-control"  placeholder="用户名" disabled>
+                                    </div>
+                                  </div>                            
+                                  <div class="form-group">
+                                    <label for="realname" class="col-sm-4 control-label">真实姓名</label>
+                                    <div class="col-sm-8">
+                                      <input type="text" [(ngModel)]="use_addrealName" name="addrealName" class="form-control" id="inputEmail3" placeholder="真实姓名">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="email" class="col-sm-4 control-label">邮箱地址</label>
+                                    <div class="col-sm-8">
+                                      <input type="email" [(ngModel)]="use_addemail" name="addemail" class="form-control" id="inputEmail3" placeholder="邮箱地址" disabled>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="phone" class="col-sm-4 control-label">手机号码</label>
+                                    <div class="col-sm-8">
+                                      <input type="text" [(ngModel)]="use_addphone" maxlength="11" name="addphone" class="form-control" id="inputEmail3" placeholder="手机号码">
+                                    </div>
+                                  </div>                              
+                                  <div class="form-group">
+                                    <label for="status" class="col-sm-4 control-label">是否启用</label>
+                                    <div class="col-sm-8">
+                                        <label class="radio-inline">
+                                          <input type="radio" class="adduseravaliable" name="userStatus" value="1" checked> 启用
+                                        </label>
+                                        <label class="radio-inline">
+                                          <input type="radio" class="adduseravaliable" name="userStatus" value="0"> 未启用
+                                        </label>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="userRole" class="col-sm-4 control-label">用户角色</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2-userRole">
+                                            <option value=""></option>
+                                            <option value="0">管理员</option>
+                                            <option value="2">专员</option>
+                                            <option value="3">值班人员</option>
+                                            <option value="4">运行主管</option>
+                                            <option value="5">保障主管</option>
+                                        </select>
+                                    </div>
+                                  </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-6">                          
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">搜索智慧树账号</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="inner">
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label>搜索：</label>
+                                                    <label>
+                                                        <input type="radio" value="2" name="seachflga" checked />用户名
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" value="3" name="seachflga" />邮箱
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" value="10" name="seachflga" />真实姓名
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" value="1" name="seachflga" />用户ID
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" value="4" name="seachflga" />手机号
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group col-sm-12">
+                                                    <input type="text" (keyup.enter)="getZhsUserInfo()" [(ngModel)]="use_zhsSeaVal" class="form-control" />
+                                                    <span class="input-group-btn">
+                                                        <button (click)="getZhsUserInfo()" class="btn btn-default">
+                                                            <i class="fa fa-fw fa-search"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12" style="height: 161px;">
+                                                    <p *ngIf="use_SearchResult">无搜索结果</p>
+                                                    <ul *ngIf="use_zhsSearchResult" class="list-group" style="padding-left: 30px;height: 141px;overflow-y: auto;">                                            
+                                                        <li (click)="addFromZhs(zhsUser.userId,zhsUser.username,zhsUser.realname,zhsUser.email,zhsUser.mobile,zhsUser.avatar)" *ngFor="let zhsUser of use_zhsUserInfo" style="cursor: pointer;margin-bottom: 5px;">{{zhsUser.userId}}&nbsp;&nbsp;{{zhsUser.username}}&nbsp;&nbsp;{{zhsUser.realname}}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" (click)="addClear()" class="btn btn-default" #guanbiadd data-dismiss="modal">取消</button>
+                        <button type="button" #addBtn (click)="addUser()" class="btn btn-primary" disabled>新增</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <button class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-user-plus" style="padding-right: 5px;"></i>新增用户</button>            
+        </div>
+        
+        <div class="col-xs-4 pull-right">
+            <div class="input-group">
+                <input type="text" (keyup.enter)="getUserList()" class="form-control" [(ngModel)]="use_seaVal" name="seaVal" placeholder="用户名、姓名、邮箱或手机号" />
+                <span class="input-group-btn">
+                    <button class="btn btn-info btn-flat" (click)='getUserList()'><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="modal fade" id="delModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">删除用户</h4>
+              </div>
+              <div class="modal-body">
+                <p>确认删除用户？</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" #guanbidelete data-dismiss="modal">取消</button>
+                <button type="button" (click)="deleteUser()" class="btn btn-primary">删除</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改用户</h4>
+              </div>
+              <div class="modal-body">
+                    <div class="row">
+                            <div class="col-sm-12">
+                                <form class="form-horizontal" role="form">
+                                  <div class="form-group">
+                                    <label for="userId" class="col-sm-4 control-label">智慧树用户ID</label>
+                                    <div class="col-sm-8">
+                                      <input type="text"  name="updetazhsId" [(ngModel)]="use_updetazhsId" class="form-control" placeholder="智慧树用户ID" disabled>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="username" class="col-sm-4 control-label">用户名</label>
+                                    <div class="col-sm-8">
+                                      <input type="text"  name="updateuserName" [(ngModel)]="use_updateuserName" class="form-control"  placeholder="用户名" disabled>
+                                    </div>
+                                  </div>                               
+                                  <div class="form-group">
+                                    <label for="realname" class="col-sm-4 control-label">真实姓名</label>
+                                    <div class="col-sm-8">
+                                      <input type="text" [(ngModel)]="use_updaterealName" name="updaterealName" class="form-control" id="inputEmail3" placeholder="真实姓名">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="email" class="col-sm-4 control-label">邮箱地址</label>
+                                    <div class="col-sm-8">
+                                      <input type="email"  name="updateemail" [(ngModel)]="use_updateemail" class="form-control"  placeholder="邮箱地址" disabled>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="phone" class="col-sm-4 control-label">手机号码</label>
+                                    <div class="col-sm-8">
+                                      <input type="text" maxlength="11" name="updatephone" [(ngModel)]="use_updatephone" class="form-control"  placeholder="手机号码">
+                                    </div>
+                                  </div>                                
+                                  <div class="form-group">
+                                    <label for="status" class="col-sm-4 control-label">是否启用</label>
+                                    <div class="col-sm-8">
+                                        <label class="radio-inline">
+                                          <input type="radio" class="updateavaliable" value="1" name="updateUserStatus"> 启用
+                                        </label>
+                                        <label class="radio-inline">
+                                          <input type="radio" class="updateavaliable" value="0" name="updateUserStatus"> 未启用
+                                        </label>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="userRole" class="col-sm-4 control-label">用户角色</label>
+                                    <div class="col-sm-8">
+                                        <select id="updateRole" #updaterole class="form-control select2-updateRole">
+                                            <option value="0">管理员</option>                                         
+                                            <option value="2">专员</option>
+                                            <option value="3">值班人员</option>
+                                            <option value="4">运行主管</option>
+                                            <option value="5">保障主管</option>
+                                        </select>
+                                    </div>
+                                  </div>
+                                </form>
+                            </div>
+                        </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" #guanbiupdate data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" (click)="updateUser()">修改</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 table-responsive">
+            <div class="box-body table-responsive" style="padding:0px;padding-top: 10px;">          
+                <table id="userList" class="table table-hover display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th style="padding-top: 0px;">用户名</th>
+                            <th style="padding-top: 0px;">真实名字</th>
+                            <th style="padding-top: 0px;">邮箱</th>
+                            <th style="padding-top: 0px;">手机号码</th>
+                            <th style="padding-top: 0px;">角色</th>
+                            <th style="padding-top: 0px;">是否启用</th>
+                            <th style="padding-top: 0px;">操作</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
