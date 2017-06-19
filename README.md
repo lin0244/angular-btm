@@ -1,4 +1,4 @@
-# 前言
+# angular-btm(Background management system)
 当初在公司学了一周angular2就开始着手这个项目，一步步看文档、网上请教别人再加自己摸索；从官网上的QUICKSTART开始，搭建了最初的项目，直到最后用angular-cli重新搭建，踩了许多坑，总算完善了这个项目。因为项目是基于公司里的项目经我改版的，所以很多流程大家不需要去理解，只要去看里面的技术即可。为了业务需求，以及一些展示和交互，也引入了不少第三方插件，比如jquery、adminlte、bootstrap、select2、datatables等，涉及这些的内容都不是必需的，后期会将项目精简一点！正是因为本项目涉及内容繁多，所以涵盖了angular2(angular4)的大量知识点，从组件通信、管道、指令、生命周期钩子等，到路由、按需加载、预编译、打包发布等应有尽有。希望能为您进步的道路上提供帮助~
 # 技术栈
 angular-cli + angular4 + webpack + ES6 
@@ -14,7 +14,8 @@ ng build
 启用预编译打包：  
 ng build -prod
 # 项目展示
-目前就设定了五种角色权限，就暂时先把各个角色的页面展示一下  
+目前就设定了五种角色权限，就暂时先把各个角色的页面展示一下
+目前项目内部的接口服务都被假的json数据替换了，登录时登录名分别为role1、role2、role3、role4、role5,密码随便写，就能进入到对应角色页面！
 
 角色1管理员
 ![image](https://github.com/HALOH/angular-cli-btm/blob/master/screenshots/role1.gif )    
